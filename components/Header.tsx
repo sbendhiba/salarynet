@@ -29,23 +29,21 @@ export default function Header() {
                 <p className="text-gray-600 text-sm md:text-base">
                   Simulateur Brut en Net - Estimation précise et instantanée
                 </p>
+                {/* Correct Moroccan Flag SVG */}
                 <svg 
                   className="w-6 h-4 flex-shrink-0" 
                   viewBox="0 0 900 600" 
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  {/* Red background */}
                   <rect width="900" height="600" fill="#C1272D"/>
-                  <rect width="900" height="200" y="200" fill="#006233"/>
+                  
+                  {/* Green pentagram (5-pointed star) in the center */}
                   <g transform="translate(450,300)">
-                    <polygon 
-                      points="0,-120 -103.9,-60 -103.9,60 0,120 103.9,60 103.9,-60" 
+                    <path 
+                      d="M 0,-90 L 21.27,-27.81 L 85.32,-27.81 L 34.02,13.77 L 55.29,75.96 L 0,34.38 L -55.29,75.96 L -34.02,13.77 L -85.32,-27.81 L -21.27,-27.81 Z" 
                       fill="#006233" 
-                      stroke="#C1272D" 
-                      strokeWidth="8"
-                    />
-                    <polygon 
-                      points="0,-80 -69.3,-40 -69.3,40 0,80 69.3,40 69.3,-40" 
-                      fill="#C1272D"
+                      stroke="none"
                     />
                   </g>
                 </svg>

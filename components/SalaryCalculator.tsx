@@ -456,58 +456,58 @@ export default function SalaryCalculator() {
               <div className="bg-purple-100 p-2 rounded-lg">
                 <TrendingUp className="w-5 h-5 text-purple-600" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">Statistiques salariales - Secteur privé Maroc 2025</h2>
+              <h2 className="text-xl font-bold text-gray-900">Statistiques salariales NET - Secteur privé Maroc 2025</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-800 mb-2">Salaire médian</h3>
-                <p className="text-2xl font-bold text-blue-600">6 500 MAD</p>
-                <p className="text-sm text-blue-600">brut/mois</p>
+                <h3 className="font-semibold text-blue-800 mb-2">Salaire médian NET</h3>
+                <p className="text-2xl font-bold text-blue-600">4 500 MAD</p>
+                <p className="text-sm text-blue-600">net/mois</p>
               </div>
               
               <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-2">Salaire moyen</h3>
-                <p className="text-2xl font-bold text-green-600">8 200 MAD</p>
-                <p className="text-sm text-green-600">brut/mois</p>
+                <h3 className="font-semibold text-green-800 mb-2">Salaire moyen NET</h3>
+                <p className="text-2xl font-bold text-green-600">5 800 MAD</p>
+                <p className="text-sm text-green-600">net/mois</p>
               </div>
               
               <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
-                <h3 className="font-semibold text-orange-800 mb-2">SMIG 2025</h3>
-                <p className="text-2xl font-bold text-orange-600">3 500 MAD</p>
-                <p className="text-sm text-orange-600">brut/mois</p>
+                <h3 className="font-semibold text-orange-800 mb-2">SMIG 2025 NET</h3>
+                <p className="text-2xl font-bold text-orange-600">3 200 MAD</p>
+                <p className="text-sm text-orange-600">net/mois</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-800 mb-3">Répartition par tranches (secteur privé)</h4>
+                <h4 className="font-semibold text-gray-800 mb-3">Répartition par tranches NET (secteur privé)</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Moins de 4 000 MAD</span>
-                    <span className="font-medium">25%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>4 000 - 6 000 MAD</span>
+                    <span>Moins de 3 500 MAD NET</span>
                     <span className="font-medium">30%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>6 000 - 10 000 MAD</span>
+                    <span>3 500 - 5 000 MAD NET</span>
                     <span className="font-medium">25%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>10 000 - 15 000 MAD</span>
+                    <span>5 000 - 8 000 MAD NET</span>
+                    <span className="font-medium">25%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>8 000 - 12 000 MAD NET</span>
                     <span className="font-medium">12%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Plus de 15 000 MAD</span>
+                    <span>Plus de 12 000 MAD NET</span>
                     <span className="font-medium">8% (92e percentile)</span>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-800 mb-3">Comparaison avec votre salaire</h4>
+                <h4 className="font-semibold text-gray-800 mb-3">Comparaison avec votre salaire NET</h4>
                 {result && (
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
@@ -519,23 +519,23 @@ export default function SalaryCalculator() {
                       <span className="font-medium text-teal-600">{formatCurrency(result.netSalary)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Vs. médian</span>
-                      <span className={`font-medium ${result.grossSalary > 6500 ? 'text-green-600' : 'text-red-600'}`}>
-                        {result.grossSalary > 6500 ? '+' : ''}{((result.grossSalary - 6500) / 6500 * 100).toFixed(0)}%
+                      <span>Vs. médian NET</span>
+                      <span className={`font-medium ${result.netSalary > 4500 ? 'text-green-600' : 'text-red-600'}`}>
+                        {result.netSalary > 4500 ? '+' : ''}{((result.netSalary - 4500) / 4500 * 100).toFixed(0)}%
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Vs. moyen</span>
-                      <span className={`font-medium ${result.grossSalary > 8200 ? 'text-green-600' : 'text-red-600'}`}>
-                        {result.grossSalary > 8200 ? '+' : ''}{((result.grossSalary - 8200) / 8200 * 100).toFixed(0)}%
+                      <span>Vs. moyen NET</span>
+                      <span className={`font-medium ${result.netSalary > 5800 ? 'text-green-600' : 'text-red-600'}`}>
+                        {result.netSalary > 5800 ? '+' : ''}{((result.netSalary - 5800) / 5800 * 100).toFixed(0)}%
                       </span>
                     </div>
                     <div className="mt-3 p-2 bg-blue-100 rounded text-blue-800 text-xs">
-                      {result.grossSalary <= 4000 && "Votre salaire se situe dans la tranche basse du marché"}
-                      {result.grossSalary > 4000 && result.grossSalary <= 6000 && "Votre salaire est proche de la médiane du marché"}
-                      {result.grossSalary > 6000 && result.grossSalary <= 10000 && "Votre salaire est au-dessus de la médiane"}
-                      {result.grossSalary > 10000 && result.grossSalary <= 15000 && "Votre salaire est dans la tranche supérieure"}
-                      {result.grossSalary > 15000 && "Votre salaire est dans le top 8% du marché (92e percentile)"}
+                      {result.netSalary <= 3500 && "Votre salaire NET se situe dans la tranche basse du marché"}
+                      {result.netSalary > 3500 && result.netSalary <= 5000 && "Votre salaire NET est proche de la médiane du marché"}
+                      {result.netSalary > 5000 && result.netSalary <= 8000 && "Votre salaire NET est au-dessus de la médiane"}
+                      {result.netSalary > 8000 && result.netSalary <= 12000 && "Votre salaire NET est dans la tranche supérieure"}
+                      {result.netSalary > 12000 && "Votre salaire NET est dans le top 8% du marché (92e percentile)"}
                     </div>
                   </div>
                 )}
