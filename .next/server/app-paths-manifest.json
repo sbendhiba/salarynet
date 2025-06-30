@@ -2,5 +2,6 @@
   "/page": "app/page.js",
   "/faq/page": "app/faq/page.js",
   "/politique-confidentialite/page": "app/politique-confidentialite/page.js",
-  "/mentions-legales/page": "app/mentions-legales/page.js"
+  "/mentions-legales/page": "app/mentions-legales/page.js",
+  "/a-propos/page": "app/a-propos/page.js"
 }
