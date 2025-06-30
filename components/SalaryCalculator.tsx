@@ -176,20 +176,25 @@ export default function SalaryCalculator() {
     return dataWithUser;
   };
 
-  // Generate normal distribution curve data
+  // Generate normal distribution curve data for NET salaries
   const getNormalDistributionData = (): NormalDistributionPoint[] => {
     const points: NormalDistributionPoint[] = [];
-    const mean = 8200; // Average salary
-    const stdDev = 4500; // Standard deviation
+    const meanNet = 6200; // Average NET salary (adjusted from gross)
+    const stdDevNet = 3200; // Standard deviation for NET salaries
     
     // Generate curve points
     for (let i = -4; i <= 4; i += 0.1) {
       const x = i;
-      const salary = mean + (i * stdDev);
+      const salary = meanNet + (i * stdDevNet);
       const y = Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
       
-      // Calculate approximate percentile
-      const percentile = 50 + (x * 34.13); // Rough approximation
+      // Calculate percentile using cumulative distribution function approximation
+      let percentile = 50;
+      if (x >= 0) {
+        percentile = 50 + (34.13 * Math.min(x, 1)) + (13.59 * Math.max(0, Math.min(x - 1, 1))) + (2.14 * Math.max(0, Math.min(x - 2, 1))) + (0.13 * Math.max(0, x - 3));
+      } else {
+        percentile = 50 - (34.13 * Math.min(-x, 1)) - (13.59 * Math.max(0, Math.min(-x - 1, 1))) - (2.14 * Math.max(0, Math.min(-x - 2, 1))) - (0.13 * Math.max(0, -x - 3));
+      }
       
       points.push({
         x: x,
@@ -205,27 +210,30 @@ export default function SalaryCalculator() {
   const getUserPositionOnCurve = () => {
     if (!result) return null;
     
-    const mean = 8200;
-    const stdDev = 4500;
-    const userSalary = result.grossSalary;
+    const meanNet = 6200; // Average NET salary
+    const stdDevNet = 3200; // Standard deviation for NET salaries
+    const userNetSalary = result.netSalary;
     
-    // Calculate z-score
-    const zScore = (userSalary - mean) / stdDev;
+    // Calculate z-score based on NET salary
+    const zScore = (userNetSalary - meanNet) / stdDevNet;
     const y = Math.exp(-0.5 * zScore * zScore) / Math.sqrt(2 * Math.PI);
     
-    // Calculate percentile (approximate)
+    // Calculate percentile more accurately
     let percentile = 50;
-    if (zScore > 0) {
-      percentile = 50 + (zScore * 34.13);
+    if (zScore >= 0) {
+      percentile = 50 + (34.13 * Math.min(zScore, 1)) + (13.59 * Math.max(0, Math.min(zScore - 1, 1))) + (2.14 * Math.max(0, Math.min(zScore - 2, 1))) + (0.13 * Math.max(0, zScore - 3));
     } else {
-      percentile = 50 + (zScore * 34.13);
+      percentile = 50 - (34.13 * Math.min(-zScore, 1)) - (13.59 * Math.max(0, Math.min(-zScore - 1, 1))) - (2.14 * Math.max(0, Math.min(-zScore - 2, 1))) - (0.13 * Math.max(0, -zScore - 3));
     }
+    
+    // Cap percentile at realistic values
+    percentile = Math.max(1, Math.min(99, percentile));
     
     return {
       x: zScore,
       y: y * 100,
-      salary: userSalary,
-      percentile: Math.max(0, Math.min(100, percentile))
+      salary: userNetSalary,
+      percentile: percentile
     };
   };
 
@@ -263,7 +271,7 @@ export default function SalaryCalculator() {
       const data = payload[0].payload;
       return (
         <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium">Salaire: {formatCurrency(data.salary)}</p>
+          <p className="font-medium">Salaire NET: {formatCurrency(data.salary)}</p>
           <p className="text-sm text-gray-600">~{data.percentile.toFixed(0)}e percentile</p>
         </div>
       );
@@ -455,7 +463,7 @@ export default function SalaryCalculator() {
                   </div>
                   <div className="flex justify-between">
                     <span>Plus de 15 000 MAD</span>
-                    <span className="font-medium">8%</span>
+                    <span className="font-medium">8% (92e percentile)</span>
                   </div>
                 </div>
               </div>
@@ -467,6 +475,10 @@ export default function SalaryCalculator() {
                     <div className="flex justify-between">
                       <span>Votre salaire brut</span>
                       <span className="font-medium">{formatCurrency(result.grossSalary)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Votre salaire net</span>
+                      <span className="font-medium text-teal-600">{formatCurrency(result.netSalary)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Vs. médian</span>
@@ -485,20 +497,20 @@ export default function SalaryCalculator() {
                       {result.grossSalary > 4000 && result.grossSalary <= 6000 && "Votre salaire est proche de la médiane du marché"}
                       {result.grossSalary > 6000 && result.grossSalary <= 10000 && "Votre salaire est au-dessus de la médiane"}
                       {result.grossSalary > 10000 && result.grossSalary <= 15000 && "Votre salaire est dans la tranche supérieure"}
-                      {result.grossSalary > 15000 && "Votre salaire est dans le top 8% du marché"}
+                      {result.grossSalary > 15000 && "Votre salaire est dans le top 8% du marché (92e percentile)"}
                     </div>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Normal Distribution Chart */}
+            {/* Normal Distribution Chart for NET salaries */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-4">
                 <div className="bg-indigo-100 p-2 rounded-lg">
                   <BarChart3 className="w-5 h-5 text-indigo-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Distribution des salaires - Secteur privé Maroc</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Distribution des salaires NET - Secteur privé Maroc</h3>
               </div>
               
               <div className="h-96 w-full relative">
@@ -525,7 +537,7 @@ export default function SalaryCalculator() {
                       type="number"
                       domain={[-4, 4]}
                       tickFormatter={(value) => {
-                        const salary = 8200 + (value * 4500);
+                        const salary = 6200 + (value * 3200); // NET salary scale
                         return `${(salary / 1000).toFixed(0)}k`;
                       }}
                       fontSize={12}
@@ -566,10 +578,10 @@ export default function SalaryCalculator() {
                     <div className="absolute" style={{ left: '25%', top: '60%', width: '50%' }}>
                       <div className="text-center">
                         <div className="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs font-semibold inline-block">
-                          ~68% des salaires
+                          ~68% des salaires NET
                         </div>
                         <div className="text-xs text-gray-600 mt-1">
-                          {formatCurrency(8200 - 4500)} - {formatCurrency(8200 + 4500)}
+                          {formatCurrency(6200 - 3200)} - {formatCurrency(6200 + 3200)}
                         </div>
                       </div>
                     </div>
@@ -578,10 +590,10 @@ export default function SalaryCalculator() {
                     <div className="absolute" style={{ left: '12.5%', top: '75%', width: '75%' }}>
                       <div className="text-center">
                         <div className="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs font-semibold inline-block">
-                          ~95% des salaires
+                          ~95% des salaires NET
                         </div>
                         <div className="text-xs text-gray-600 mt-1">
-                          {formatCurrency(Math.max(0, 8200 - 2*4500))} - {formatCurrency(8200 + 2*4500)}
+                          {formatCurrency(Math.max(0, 6200 - 2*3200))} - {formatCurrency(6200 + 2*3200)}
                         </div>
                       </div>
                     </div>
@@ -597,7 +609,7 @@ export default function SalaryCalculator() {
                       >
                         <div className="bg-red-500 text-white px-3 py-2 rounded-lg text-xs font-bold shadow-lg">
                           <div>Votre position</div>
-                          <div>{formatCurrency(result.grossSalary)}</div>
+                          <div>{formatCurrency(result.netSalary)} NET</div>
                           <div>~{getUserPositionOnCurve()!.percentile.toFixed(0)}e percentile</div>
                         </div>
                         <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-500 mx-auto"></div>
@@ -611,8 +623,8 @@ export default function SalaryCalculator() {
                 <div className="bg-white/70 p-4 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-2">📊 Lecture du graphique</h4>
                   <p className="text-gray-700">
-                    Cette courbe de distribution normale montre la répartition des salaires au Maroc. 
-                    La zone centrale (68%) contient la majorité des salaires, tandis que votre position 
+                    Cette courbe de distribution normale montre la répartition des salaires <strong>NET</strong> au Maroc. 
+                    La zone centrale (68%) contient la majorité des salaires nets, tandis que votre position 
                     est indiquée par la ligne rouge verticale.
                   </p>
                 </div>
@@ -621,7 +633,7 @@ export default function SalaryCalculator() {
                   <h4 className="font-semibold text-gray-800 mb-2">🎯 Votre positionnement</h4>
                   {result && getUserPositionOnCurve() && (
                     <div className="space-y-1 text-gray-700">
-                      <div>Salaire: <strong>{formatCurrency(result.grossSalary)}</strong></div>
+                      <div>Salaire NET: <strong>{formatCurrency(result.netSalary)}</strong></div>
                       <div>Percentile: <strong>~{getUserPositionOnCurve()!.percentile.toFixed(0)}e</strong></div>
                       <div className="text-xs text-gray-600 mt-2">
                         {getUserPositionOnCurve()!.percentile > 50 
@@ -639,7 +651,7 @@ export default function SalaryCalculator() {
               <p className="text-amber-800 text-sm">
                 <strong>Sources :</strong> Données basées sur les enquêtes HCP (Haut-Commissariat au Plan) 2024-2025, 
                 études sectorielles et rapports du marché de l'emploi au Maroc. Les statistiques concernent 
-                principalement le secteur privé formel.
+                principalement le secteur privé formel. La distribution est maintenant basée sur les salaires <strong>NET</strong>.
               </p>
             </div>
           </section>
