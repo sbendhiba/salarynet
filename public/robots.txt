@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://salairenet.ma/sitemap.xml
+
+# Disallow crawling of any potential admin or internal pages
+Disallow: /api/
+Disallow: /_next/
+Disallow: /out/
+
+# Allow all common pages
+Allow: /
+Allow: /a-propos
+Allow: /code-du-travail
+Allow: /faq
+Allow: /mentions-legales
+Allow: /politique-confidentialite

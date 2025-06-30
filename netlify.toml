@@ -1,0 +1,21 @@
+[build]
+  publish = "out"
+  command = "npm run build && npm run export"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
+    Cache-Control = "public, max-age=86400"
+
+# Redirect old paths if needed (example)
+# [[redirects]]
+#   from = "/old-page"
+#   to = "/new-page"
+#   status = 301
