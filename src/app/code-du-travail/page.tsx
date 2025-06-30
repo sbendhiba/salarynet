@@ -1,15 +1,30 @@
+'use client';
+
+import { useState, useMemo } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { Scale, BookOpen, FileText, AlertCircle, Clock, DollarSign, Users, Shield } from 'lucide-react';
+import { Scale, BookOpen, FileText, AlertCircle, Clock, DollarSign, Users, Shield, Search, X } from 'lucide-react';
 
-export const metadata = {
-  title: 'Droit du Travail Marocain - Articles sur les Salaires | Code du Travail 2025',
-  description: 'Articles du Code du travail marocain relatifs aux salaires, rémunération, primes et indemnités. Références juridiques officielles 2025.',
-  keywords: 'code du travail maroc, droit travail maroc, salaire minimum, prime ancienneté, indemnité licenciement, congés payés',
-};
+interface Article {
+  number: string;
+  title: string;
+  content: string;
+  reference: string;
+  note?: string;
+}
 
-export default function DroitTravail() {
-  const lawArticles = [
+interface LawCategory {
+  category: string;
+  icon: any;
+  color: string;
+  articles: Article[];
+}
+
+export default function CodeDuTravail() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const lawArticles: LawCategory[] = [
     {
       category: "Salaire et Rémunération",
       icon: DollarSign,
@@ -147,6 +162,39 @@ export default function DroitTravail() {
     }
   ];
 
+  // Get all categories for filter dropdown
+  const categories = ['all', ...lawArticles.map(cat => cat.category)];
+
+  // Filter articles based on search term and selected category
+  const filteredArticles = useMemo(() => {
+    let filtered = lawArticles;
+
+    // Filter by category
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(cat => cat.category === selectedCategory);
+    }
+
+    // Filter by search term
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.map(category => ({
+        ...category,
+        articles: category.articles.filter(article =>
+          article.number.toLowerCase().includes(searchLower) ||
+          article.title.toLowerCase().includes(searchLower) ||
+          article.content.toLowerCase().includes(searchLower) ||
+          (article.note && article.note.toLowerCase().includes(searchLower))
+        )
+      })).filter(category => category.articles.length > 0);
+    }
+
+    return filtered;
+  }, [searchTerm, selectedCategory]);
+
+  // Count total articles found
+  const totalArticlesFound = filteredArticles.reduce((total, cat) => total + cat.articles.length, 0);
+  const totalArticles = lawArticles.reduce((total, cat) => total + cat.articles.length, 0);
+
   const getIconColor = (color: string) => {
     const colors = {
       teal: "text-teal-600 bg-teal-100",
@@ -171,6 +219,11 @@ export default function DroitTravail() {
     return colors[color as keyof typeof colors] || "border-gray-400";
   };
 
+  const clearSearch = () => {
+    setSearchTerm('');
+    setSelectedCategory('all');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
@@ -183,12 +236,12 @@ export default function DroitTravail() {
               <Scale className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Droit du Travail Marocain</h1>
-              <p className="text-gray-600 mt-1">Articles du Code du travail relatifs aux salaires et rémunérations</p>
+              <h1 className="text-3xl font-bold text-gray-900">Code du Travail Marocain</h1>
+              <p className="text-gray-600 mt-1">Articles relatifs aux salaires et rémunérations</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-6 rounded-r-lg mb-6">
             <div className="flex items-start gap-3">
               <BookOpen className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
               <div>
@@ -202,9 +255,78 @@ export default function DroitTravail() {
             </div>
           </div>
 
+          {/* Search and Filter Section */}
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <div className="flex items-center gap-2 mb-4">
+              <Search className="w-5 h-5 text-gray-600" />
+              <h3 className="text-lg font-semibold text-gray-900">Rechercher dans les articles</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Search Input */}
+              <div className="md:col-span-2 relative">
+                <input
+                  type="text"
+                  placeholder="Rechercher par numéro d'article, titre ou contenu..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Category Filter */}
+              <div>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                >
+                  <option value="all">Toutes les catégories</option>
+                  {lawArticles.map((category) => (
+                    <option key={category.category} value={category.category}>
+                      {category.category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Search Results Summary */}
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+              <div className="text-sm text-gray-600">
+                {searchTerm || selectedCategory !== 'all' ? (
+                  <span>
+                    <strong>{totalArticlesFound}</strong> article{totalArticlesFound !== 1 ? 's' : ''} trouvé{totalArticlesFound !== 1 ? 's' : ''} 
+                    sur <strong>{totalArticles}</strong> au total
+                  </span>
+                ) : (
+                  <span><strong>{totalArticles}</strong> articles disponibles</span>
+                )}
+              </div>
+              
+              {(searchTerm || selectedCategory !== 'all') && (
+                <button
+                  onClick={clearSearch}
+                  className="flex items-center gap-2 px-3 py-1 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                >
+                  <X className="w-4 h-4" />
+                  Effacer les filtres
+                </button>
+              )}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             <div className="bg-teal-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-teal-600">65+</div>
+              <div className="text-2xl font-bold text-teal-600">{totalArticles}+</div>
               <div className="text-sm text-teal-700">Articles sur les salaires</div>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg text-center">
@@ -218,9 +340,29 @@ export default function DroitTravail() {
           </div>
         </div>
 
+        {/* No Results Message */}
+        {filteredArticles.length === 0 && (searchTerm || selectedCategory !== 'all') && (
+          <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+            <div className="bg-gray-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <Search className="w-8 h-8 text-gray-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun article trouvé</h3>
+            <p className="text-gray-600 mb-4">
+              Aucun article ne correspond à vos critères de recherche.
+            </p>
+            <button
+              onClick={clearSearch}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            >
+              <X className="w-4 h-4" />
+              Effacer les filtres
+            </button>
+          </div>
+        )}
+
         {/* Law Articles Sections */}
         <div className="space-y-8">
-          {lawArticles.map((category, categoryIndex) => {
+          {filteredArticles.map((category, categoryIndex) => {
             const IconComponent = category.icon;
             return (
               <section key={categoryIndex} className="bg-white rounded-xl shadow-lg p-6 md:p-8">
@@ -228,7 +370,12 @@ export default function DroitTravail() {
                   <div className={`p-3 rounded-lg ${getIconColor(category.color)}`}>
                     <IconComponent className="w-6 h-6" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-gray-900">{category.category}</h2>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {category.articles.length} article{category.articles.length !== 1 ? 's' : ''}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="space-y-6">
