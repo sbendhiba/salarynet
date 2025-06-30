@@ -8,6 +8,7 @@ interface SalaryResult {
   grossSalary: number;
   cnssDeduction: number;
   amoDeduction: number;
+  socialFundDeduction: number;
   ipeDeduction: number;
   fraisProfessionnels: number;
   irDeduction: number;
@@ -36,7 +37,7 @@ interface NormalDistributionPoint {
 }
 
 interface AdvancedOptions {
-  customAmoRate: number;
+  socialFundRate: number;
   dependents: number;
   yearsOfService: number;
 }
@@ -46,7 +47,7 @@ export default function SalaryCalculator() {
   const [result, setResult] = useState<SalaryResult | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [advancedOptions, setAdvancedOptions] = useState<AdvancedOptions>({
-    customAmoRate: 2.26,
+    socialFundRate: 0, // Default 0% for companies without additional social fund
     dependents: 0,
     yearsOfService: 0
   });
@@ -65,9 +66,9 @@ export default function SalaryCalculator() {
     return grossSalary * rate;
   };
 
-  const calculateIR = (grossSalary: number, cnssDeduction: number, amoDeduction: number, ipeDeduction: number, fraisProfessionnels: number, dependents: number = 0): { irDeduction: number, dependentsDeduction: number } => {
+  const calculateIR = (grossSalary: number, cnssDeduction: number, amoDeduction: number, socialFundDeduction: number, ipeDeduction: number, fraisProfessionnels: number, dependents: number = 0): { irDeduction: number, dependentsDeduction: number } => {
     // Calculate RNI (Revenu Net Imposable) = gross - cotisations - frais professionnels
-    const rni = grossSalary - cnssDeduction - amoDeduction - ipeDeduction - fraisProfessionnels;
+    const rni = grossSalary - cnssDeduction - amoDeduction - socialFundDeduction - ipeDeduction - fraisProfessionnels;
 
     // Apply 2025 IR brackets to monthly RNI
     if (rni <= 3333.33) return { irDeduction: 0, dependentsDeduction: 0 };
@@ -112,8 +113,11 @@ export default function SalaryCalculator() {
     const cnssBase = Math.min(adjustedGross, 6000);
     const cnssDeduction = cnssBase * 0.0429;
     
-    // AMO with custom rate (applied to adjusted gross)
-    const amoDeduction = adjustedGross * (advancedOptions.customAmoRate / 100);
+    // AMO - standard rate (applied to adjusted gross)
+    const amoDeduction = adjustedGross * 0.0226;
+    
+    // Additional social fund (CIMR, etc.) - custom rate (applied to adjusted gross)
+    const socialFundDeduction = adjustedGross * (advancedOptions.socialFundRate / 100);
     
     // IPE is capped at 6000 MAD per month (applied to adjusted gross)
     const ipeBase = Math.min(adjustedGross, 6000);
@@ -127,18 +131,20 @@ export default function SalaryCalculator() {
       adjustedGross, 
       cnssDeduction, 
       amoDeduction, 
+      socialFundDeduction,
       ipeDeduction, 
       fraisProfessionnels, 
       advancedOptions.dependents
     );
     
     // Net salary = adjusted gross - all deductions
-    const netSalary = adjustedGross - cnssDeduction - amoDeduction - ipeDeduction - irDeduction;
+    const netSalary = adjustedGross - cnssDeduction - amoDeduction - socialFundDeduction - ipeDeduction - irDeduction;
 
     setResult({
       grossSalary: adjustedGross,
       cnssDeduction,
       amoDeduction,
+      socialFundDeduction,
       ipeDeduction,
       fraisProfessionnels,
       irDeduction,
@@ -187,6 +193,15 @@ export default function SalaryCalculator() {
         color: '#dc2626'
       }
     ];
+
+    // Add social fund deduction if present
+    if (result.socialFundDeduction && result.socialFundDeduction > 0) {
+      data.push({
+        name: 'Caisse Sociale',
+        value: result.socialFundDeduction,
+        color: '#6366f1'
+      });
+    }
 
     // Add seniority bonus if present
     if (result.seniorityBonus && result.seniorityBonus > 0) {
@@ -457,24 +472,26 @@ export default function SalaryCalculator() {
             <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 space-y-4">
               <h3 className="text-sm font-semibold text-gray-800 mb-3">Options avancées</h3>
               
-              {/* Custom AMO Rate */}
+              {/* Social Fund Rate (CIMR, etc.) */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Taux AMO personnalisé (%)
+                  Caisse sociale (CIMR, etc.) (%)
                 </label>
                 <input
                   type="number"
                   step="0.01"
                   min="0"
-                  max="10"
-                  value={advancedOptions.customAmoRate}
+                  max="15"
+                  value={advancedOptions.socialFundRate}
                   onChange={(e) => setAdvancedOptions(prev => ({
                     ...prev,
-                    customAmoRate: parseFloat(e.target.value) || 2.26
+                    socialFundRate: parseFloat(e.target.value) || 0
                   }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                 />
-                <p className="text-xs text-gray-500 mt-1">Taux standard: 2,26%</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  CIMR: ~6%, autres caisses variables. 0% si pas de caisse sociale supplémentaire.
+                </p>
               </div>
 
               {/* Number of Dependents */}
@@ -608,9 +625,17 @@ export default function SalaryCalculator() {
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.cnssDeduction)}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-red-600">AMO ({advancedOptions.customAmoRate}%)</span>
+                    <span className="text-red-600">AMO (2,26%)</span>
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.amoDeduction)}</span>
                   </div>
+                  
+                  {result.socialFundDeduction > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-indigo-600">Caisse sociale ({advancedOptions.socialFundRate}%)</span>
+                      <span className="text-indigo-600 font-semibold">-{formatCurrency(result.socialFundDeduction)}</span>
+                    </div>
+                  )}
+                  
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="text-red-600">IPE (0,19%{result.grossSalary > 6000 ? ' - plafonné' : ''})</span>
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.ipeDeduction)}</span>
@@ -671,10 +696,10 @@ export default function SalaryCalculator() {
             <div className="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-blue-800 mb-2">Détail du calcul IR :</h4>
               <p className="text-blue-700 text-sm">
-                RNI (Revenu Net Imposable) = {formatCurrency(result.grossSalary - result.cnssDeduction - result.amoDeduction - result.ipeDeduction - result.fraisProfessionnels)}
+                RNI (Revenu Net Imposable) = {formatCurrency(result.grossSalary - result.cnssDeduction - result.amoDeduction - result.socialFundDeduction - result.ipeDeduction - result.fraisProfessionnels)}
                 <br />
                 <span className="text-xs text-blue-600">
-                  (Salaire brut total - CNSS - AMO - IPE - Frais professionnels: {formatCurrency(result.fraisProfessionnels)})
+                  (Salaire brut total - CNSS - AMO{result.socialFundDeduction > 0 ? ' - Caisse sociale' : ''} - IPE - Frais professionnels: {formatCurrency(result.fraisProfessionnels)})
                 </span>
                 {result.dependentsDeduction && result.dependentsDeduction > 0 && (
                   <>
