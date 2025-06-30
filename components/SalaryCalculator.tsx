@@ -868,7 +868,7 @@ export default function SalaryCalculator() {
                       stroke="#10b981" 
                       strokeWidth={3}
                       strokeDasharray="8 4"
-                      label={{ value: "Médiane (4,500 MAD)", position: "topLeft", fill: "#10b981", fontSize: 12, fontWeight: "bold" }}
+                      label={{ value: "Médiane (4,500 MAD)", position: "top", fill: "#10b981", fontSize: 12, fontWeight: "bold" }}
                     />
                     
                     {/* Average line (5,800 MAD NET) */}
@@ -877,7 +877,7 @@ export default function SalaryCalculator() {
                       stroke="#f59e0b" 
                       strokeWidth={2}
                       strokeDasharray="8 4"
-                      label={{ value: "Moyenne (5,800 MAD)", position: "topRight", fill: "#f59e0b", fontSize: 12, fontWeight: "bold" }}
+                      label={{ value: "Moyenne (5,800 MAD)", position: "top", fill: "#f59e0b", fontSize: 12, fontWeight: "bold" }}
                     />
                     
                     {/* User position line */}
