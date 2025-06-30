@@ -10,6 +10,7 @@ export default function Header() {
   const navigation = [
     { name: 'Accueil', href: '/' },
     { name: 'FAQ', href: '/faq' },
+    { name: 'Droit du Travail', href: '/droit-travail' },
     { name: 'À propos', href: '/a-propos' },
   ];
 

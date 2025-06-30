@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Shield, FileText, HelpCircle, Mail } from 'lucide-react';
+import { Shield, FileText, HelpCircle, Mail, Scale } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white mt-16">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           <Link 
             href="/politique-confidentialite" 
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
@@ -26,6 +26,13 @@ export default function Footer() {
           >
             <HelpCircle className="w-4 h-4" />
             FAQ
+          </Link>
+          <Link 
+            href="/droit-travail" 
+            className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
+          >
+            <Scale className="w-4 h-4" />
+            Droit du Travail
           </Link>
           <Link 
             href="/a-propos" 
