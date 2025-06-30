@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Calculator, FileText, PieChart, TrendingUp, BarChart3 } from 'lucide-react';
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Area, AreaChart, ReferenceLine } from 'recharts';
 
 interface SalaryResult {
   grossSalary: number;
@@ -24,6 +24,13 @@ interface PercentileData {
   percentile: string;
   salary: number;
   isUser?: boolean;
+}
+
+interface NormalDistributionPoint {
+  x: number;
+  y: number;
+  salary: number;
+  percentile: number;
 }
 
 export default function SalaryCalculator() {
@@ -169,6 +176,59 @@ export default function SalaryCalculator() {
     return dataWithUser;
   };
 
+  // Generate normal distribution curve data
+  const getNormalDistributionData = (): NormalDistributionPoint[] => {
+    const points: NormalDistributionPoint[] = [];
+    const mean = 8200; // Average salary
+    const stdDev = 4500; // Standard deviation
+    
+    // Generate curve points
+    for (let i = -4; i <= 4; i += 0.1) {
+      const x = i;
+      const salary = mean + (i * stdDev);
+      const y = Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+      
+      // Calculate approximate percentile
+      const percentile = 50 + (x * 34.13); // Rough approximation
+      
+      points.push({
+        x: x,
+        y: y * 100, // Scale for visibility
+        salary: Math.max(0, salary),
+        percentile: Math.max(0, Math.min(100, percentile))
+      });
+    }
+    
+    return points;
+  };
+
+  const getUserPositionOnCurve = () => {
+    if (!result) return null;
+    
+    const mean = 8200;
+    const stdDev = 4500;
+    const userSalary = result.grossSalary;
+    
+    // Calculate z-score
+    const zScore = (userSalary - mean) / stdDev;
+    const y = Math.exp(-0.5 * zScore * zScore) / Math.sqrt(2 * Math.PI);
+    
+    // Calculate percentile (approximate)
+    let percentile = 50;
+    if (zScore > 0) {
+      percentile = 50 + (zScore * 34.13);
+    } else {
+      percentile = 50 + (zScore * 34.13);
+    }
+    
+    return {
+      x: zScore,
+      y: y * 100,
+      salary: userSalary,
+      percentile: Math.max(0, Math.min(100, percentile))
+    };
+  };
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0];
@@ -192,6 +252,19 @@ export default function SalaryCalculator() {
         <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
           <p className="font-medium">{label} percentile</p>
           <p className="text-sm text-gray-600">{formatCurrency(data.value)}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const NormalDistributionTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+          <p className="font-medium">Salaire: {formatCurrency(data.salary)}</p>
+          <p className="text-sm text-gray-600">~{data.percentile.toFixed(0)}e percentile</p>
         </div>
       );
     }
@@ -419,67 +492,146 @@ export default function SalaryCalculator() {
               </div>
             </div>
 
-            {/* Percentile Chart */}
+            {/* Normal Distribution Chart */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-4">
                 <div className="bg-indigo-100 p-2 rounded-lg">
                   <BarChart3 className="w-5 h-5 text-indigo-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Positionnement par percentiles</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Distribution des salaires - Secteur privé Maroc</h3>
               </div>
               
-              <div className="h-80 w-full">
+              <div className="h-96 w-full relative">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={getPercentileData()}
+                  <AreaChart
+                    data={getNormalDistributionData()}
                     margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
                   >
+                    <defs>
+                      <linearGradient id="distributionGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                      </linearGradient>
+                      <linearGradient id="userGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0.3}/>
+                      </linearGradient>
+                    </defs>
+                    
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    
                     <XAxis 
-                      dataKey="percentile" 
-                      angle={-45}
-                      textAnchor="end"
-                      height={80}
+                      dataKey="x"
+                      type="number"
+                      domain={[-4, 4]}
+                      tickFormatter={(value) => {
+                        const salary = 8200 + (value * 4500);
+                        return `${(salary / 1000).toFixed(0)}k`;
+                      }}
                       fontSize={12}
                       stroke="#6b7280"
                     />
+                    
                     <YAxis 
-                      tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
-                      fontSize={12}
-                      stroke="#6b7280"
+                      hide
+                      domain={[0, 'dataMax']}
                     />
-                    <Tooltip content={<PercentileTooltip />} />
-                    <Bar 
-                      dataKey="salary" 
-                      radius={[4, 4, 0, 0]}
-                      fill={(entry: any) => entry.isUser ? '#dc2626' : '#6366f1'}
-                    >
-                      {getPercentileData().map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={entry.isUser ? '#dc2626' : '#6366f1'} 
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
+                    
+                    <Tooltip content={<NormalDistributionTooltip />} />
+                    
+                    <Area
+                      type="monotone"
+                      dataKey="y"
+                      stroke="#3b82f6"
+                      strokeWidth={2}
+                      fill="url(#distributionGradient)"
+                    />
+                    
+                    {/* User position line */}
+                    {getUserPositionOnCurve() && (
+                      <ReferenceLine 
+                        x={getUserPositionOnCurve()!.x} 
+                        stroke="#ef4444" 
+                        strokeWidth={3}
+                        strokeDasharray="5 5"
+                      />
+                    )}
+                  </AreaChart>
                 </ResponsiveContainer>
+                
+                {/* Percentile labels overlay */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="relative h-full w-full">
+                    {/* 68% area (±1σ) */}
+                    <div className="absolute" style={{ left: '25%', top: '60%', width: '50%' }}>
+                      <div className="text-center">
+                        <div className="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs font-semibold inline-block">
+                          ~68% des salaires
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {formatCurrency(8200 - 4500)} - {formatCurrency(8200 + 4500)}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* 95% area (±2σ) */}
+                    <div className="absolute" style={{ left: '12.5%', top: '75%', width: '75%' }}>
+                      <div className="text-center">
+                        <div className="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs font-semibold inline-block">
+                          ~95% des salaires
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {formatCurrency(Math.max(0, 8200 - 2*4500))} - {formatCurrency(8200 + 2*4500)}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* User position indicator */}
+                    {getUserPositionOnCurve() && (
+                      <div 
+                        className="absolute transform -translate-x-1/2" 
+                        style={{ 
+                          left: `${((getUserPositionOnCurve()!.x + 4) / 8) * 100}%`, 
+                          top: '20%' 
+                        }}
+                      >
+                        <div className="bg-red-500 text-white px-3 py-2 rounded-lg text-xs font-bold shadow-lg">
+                          <div>Votre position</div>
+                          <div>{formatCurrency(result.grossSalary)}</div>
+                          <div>~{getUserPositionOnCurve()!.percentile.toFixed(0)}e percentile</div>
+                        </div>
+                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-500 mx-auto"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               
-              <div className="mt-4 flex items-center justify-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-indigo-500 rounded"></div>
-                  <span className="text-gray-600">Population générale</span>
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="bg-white/70 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800 mb-2">📊 Lecture du graphique</h4>
+                  <p className="text-gray-700">
+                    Cette courbe de distribution normale montre la répartition des salaires au Maroc. 
+                    La zone centrale (68%) contient la majorité des salaires, tandis que votre position 
+                    est indiquée par la ligne rouge verticale.
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-600 rounded"></div>
-                  <span className="text-gray-600">Votre position</span>
+                
+                <div className="bg-white/70 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800 mb-2">🎯 Votre positionnement</h4>
+                  {result && getUserPositionOnCurve() && (
+                    <div className="space-y-1 text-gray-700">
+                      <div>Salaire: <strong>{formatCurrency(result.grossSalary)}</strong></div>
+                      <div>Percentile: <strong>~{getUserPositionOnCurve()!.percentile.toFixed(0)}e</strong></div>
+                      <div className="text-xs text-gray-600 mt-2">
+                        {getUserPositionOnCurve()!.percentile > 50 
+                          ? `Vous gagnez plus que ${getUserPositionOnCurve()!.percentile.toFixed(0)}% des salariés`
+                          : `${(100 - getUserPositionOnCurve()!.percentile).toFixed(0)}% des salariés gagnent plus que vous`
+                        }
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-              
-              <div className="mt-4 bg-white/70 p-3 rounded text-sm text-gray-700">
-                <strong>Lecture :</strong> Ce graphique montre la distribution des salaires par percentiles. 
-                Par exemple, le 75e percentile signifie que 75% des salariés gagnent moins que ce montant. 
-                Votre position est mise en évidence en rouge.
               </div>
             </div>
 
