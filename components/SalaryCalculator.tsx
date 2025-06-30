@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calculator, FileText, PieChart, TrendingUp } from 'lucide-react';
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { Calculator, FileText, PieChart, TrendingUp, BarChart3 } from 'lucide-react';
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 interface SalaryResult {
   grossSalary: number;
@@ -18,6 +18,12 @@ interface ChartData {
   name: string;
   value: number;
   color: string;
+}
+
+interface PercentileData {
+  percentile: string;
+  salary: number;
+  isUser?: boolean;
 }
 
 export default function SalaryCalculator() {
@@ -124,6 +130,45 @@ export default function SalaryCalculator() {
     ];
   };
 
+  const getPercentileData = (): PercentileData[] => {
+    const baseData = [
+      { percentile: '10e', salary: 3500 },
+      { percentile: '25e', salary: 4200 },
+      { percentile: '50e', salary: 6500 },
+      { percentile: '75e', salary: 10000 },
+      { percentile: '90e', salary: 15000 },
+      { percentile: '95e', salary: 22000 },
+      { percentile: '99e', salary: 35000 }
+    ];
+
+    if (!result) return baseData;
+
+    // Find where user's salary fits and add it to the data
+    const userSalary = result.grossSalary;
+    const dataWithUser = [...baseData];
+    
+    // Add user's position
+    let userPercentile = '50e';
+    if (userSalary <= 3500) userPercentile = '<10e';
+    else if (userSalary <= 4200) userPercentile = '~15e';
+    else if (userSalary <= 6500) userPercentile = '~40e';
+    else if (userSalary <= 10000) userPercentile = '~70e';
+    else if (userSalary <= 15000) userPercentile = '~85e';
+    else if (userSalary <= 22000) userPercentile = '~97e';
+    else userPercentile = '>99e';
+
+    // Insert user data in the right position
+    const userData = { percentile: `Vous (${userPercentile})`, salary: userSalary, isUser: true };
+    
+    // Find insertion point
+    let insertIndex = baseData.findIndex(item => item.salary > userSalary);
+    if (insertIndex === -1) insertIndex = baseData.length;
+    
+    dataWithUser.splice(insertIndex, 0, userData);
+    
+    return dataWithUser;
+  };
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0];
@@ -134,6 +179,19 @@ export default function SalaryCalculator() {
           <p className="text-xs text-gray-500">
             {((data.value / result!.grossSalary) * 100).toFixed(1)}% du brut
           </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const PercentileTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0];
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+          <p className="font-medium">{label} percentile</p>
+          <p className="text-sm text-gray-600">{formatCurrency(data.value)}</p>
         </div>
       );
     }
@@ -302,7 +360,7 @@ export default function SalaryCalculator() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-gray-800 mb-3">Répartition par tranches (secteur privé)</h4>
                 <div className="space-y-2 text-sm">
@@ -358,6 +416,70 @@ export default function SalaryCalculator() {
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Percentile Chart */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <BarChart3 className="w-5 h-5 text-indigo-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">Positionnement par percentiles</h3>
+              </div>
+              
+              <div className="h-80 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={getPercentileData()}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis 
+                      dataKey="percentile" 
+                      angle={-45}
+                      textAnchor="end"
+                      height={80}
+                      fontSize={12}
+                      stroke="#6b7280"
+                    />
+                    <YAxis 
+                      tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
+                      fontSize={12}
+                      stroke="#6b7280"
+                    />
+                    <Tooltip content={<PercentileTooltip />} />
+                    <Bar 
+                      dataKey="salary" 
+                      radius={[4, 4, 0, 0]}
+                      fill={(entry: any) => entry.isUser ? '#dc2626' : '#6366f1'}
+                    >
+                      {getPercentileData().map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.isUser ? '#dc2626' : '#6366f1'} 
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              
+              <div className="mt-4 flex items-center justify-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-indigo-500 rounded"></div>
+                  <span className="text-gray-600">Population générale</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-red-600 rounded"></div>
+                  <span className="text-gray-600">Votre position</span>
+                </div>
+              </div>
+              
+              <div className="mt-4 bg-white/70 p-3 rounded text-sm text-gray-700">
+                <strong>Lecture :</strong> Ce graphique montre la distribution des salaires par percentiles. 
+                Par exemple, le 75e percentile signifie que 75% des salariés gagnent moins que ce montant. 
+                Votre position est mise en évidence en rouge.
               </div>
             </div>
 
