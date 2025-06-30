@@ -28,11 +28,11 @@ export default function Footer() {
             FAQ
           </Link>
           <Link 
-            href="/droit-travail" 
+            href="/code-du-travail" 
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <Scale className="w-4 h-4" />
-            Droit du Travail
+            Code du Travail
           </Link>
           <Link 
             href="/a-propos" 
