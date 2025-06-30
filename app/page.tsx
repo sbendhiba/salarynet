@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SalaryCalculator from '@/components/SalaryCalculator';
 import Link from 'next/link';
-import { Info, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Info, HelpCircle, ChevronDown } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -18,12 +18,12 @@ export default function Home() {
             <div className="bg-blue-100 p-2 rounded-lg">
               <Info className="w-5 h-5 text-blue-600" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Comment est calculé votre salaire net ?</h2>
+            <h2 className="text-xl font-bold text-gray-900">Comment est calculé votre salaire net CDI ?</h2>
           </div>
 
           <div className="prose prose-gray max-w-none">
             <p className="text-gray-700 leading-relaxed mb-4">
-              Au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
+              Pour un contrat CDI au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
               La <strong>CNSS (Caisse Nationale de Sécurité Sociale)</strong> représente 4,29% de votre salaire brut 
               (plafonné à 6 000 MAD/mois), l'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
               assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d\'Emploi)</strong> de 0,19% 
