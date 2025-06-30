@@ -268,12 +268,10 @@ export default function SalaryCalculator() {
     if (netSalary <= 8000) return 80;
     if (netSalary <= 10000) return 85;
     if (netSalary <= 12000) return 90;
-    if (netSalary <= 15000) return 92; // This matches the "8% earn more than 15k gross" statistic
-    if (netSalary <= 18000) return 95;
-    if (netSalary <= 22000) return 97;
-    if (netSalary <= 28000) return 98;
-    if (netSalary <= 35000) return 99;
-    return 99.5; // Cap at 99.5% for very high salaries
+    if (netSalary <= 15000) return 91;
+    if (netSalary <= 20000) return 91.5;
+    if (netSalary <= 30000) return 92; // Max value at 92nd percentile
+    return 92; // Cap at 92% for salaries above 30k
   };
 
   // Generate normal distribution curve data for NET salaries
@@ -289,10 +287,10 @@ export default function SalaryCalculator() {
     for (let i = 0; i <= numPoints; i++) {
       const t = i / numPoints;
       
-      // Map t (0 to 1) to salary range (3k to 50k) with proper scaling
+      // Map t (0 to 1) to salary range (0k to 30k) with proper scaling
       // Use a more linear approach to ensure median is at center
-      const minSalary = 3000;
-      const maxSalary = 50000;
+      const minSalary = 0;
+      const maxSalary = 30000;
       const salary = minSalary + (maxSalary - minSalary) * t;
       
       // Calculate normal distribution density with median at peak
@@ -329,9 +327,9 @@ export default function SalaryCalculator() {
     
     const userNetSalary = result.netSalary;
     
-    // Calculate position on the 3k-50k scale
-    const minSalary = 3000;
-    const maxSalary = 50000;
+    // Calculate position on the 0k-30k scale
+    const minSalary = 0;
+    const maxSalary = 30000;
     
     // Clamp user salary to our range
     const clampedSalary = Math.max(minSalary, Math.min(maxSalary, userNetSalary));
@@ -360,8 +358,8 @@ export default function SalaryCalculator() {
   // Calculate x position for median line (should be at peak of curve)
   const getMedianPosition = () => {
     const medianSalary = 4500;
-    const minSalary = 3000;
-    const maxSalary = 50000;
+    const minSalary = 0;
+    const maxSalary = 30000;
     // Linear mapping to ensure median is at the center/peak
     return ((medianSalary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
   };
@@ -369,8 +367,8 @@ export default function SalaryCalculator() {
   // Calculate x position for average line
   const getAveragePosition = () => {
     const averageSalary = 5800;
-    const minSalary = 3000;
-    const maxSalary = 50000;
+    const minSalary = 0;
+    const maxSalary = 30000;
     return ((averageSalary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
   };
 
@@ -811,7 +809,7 @@ export default function SalaryCalculator() {
                 <div className="bg-indigo-100 p-2 rounded-lg">
                   <BarChart3 className="w-5 h-5 text-indigo-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Distribution des salaires NET - Secteur privé Maroc (3k - 50k+ MAD)</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Distribution des salaires NET - Secteur privé Maroc (0k - 30k+ MAD)</h3>
               </div>
               
               <div className="h-96 w-full relative">
@@ -840,8 +838,9 @@ export default function SalaryCalculator() {
                       tickFormatter={(value) => {
                         // Convert x back to salary for display
                         const t = (value + 5) / 10; // Convert to 0-1 range
-                        const salary = 3000 + (50000 - 3000) * t;
-                        return `${(salary / 1000).toFixed(0)}k`;
+                        const salary = 0 + (30000 - 0) * t;
+                        const salaryK = (salary / 1000).toFixed(0);
+                        return salaryK === '30' ? '30k+' : `${salaryK}k`;
                       }}
                       fontSize={12}
                       stroke="#6b7280"
