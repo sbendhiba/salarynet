@@ -198,41 +198,45 @@ export default function SalaryCalculator() {
     return 99.5; // Cap at 99.5% for very high salaries
   };
 
-  // Generate normal distribution curve data for NET salaries with proper 3k-50k range
-  // Adjusted to have median at 4,500 MAD NET
+  // Generate normal distribution curve data for NET salaries
+  // FIXED: Now properly centered so median (4,500 MAD) is at the peak
   const getNormalDistributionData = (): NormalDistributionPoint[] => {
     const points: NormalDistributionPoint[] = [];
     
-    // Create a realistic salary distribution from 3k to 50k+ MAD NET
-    // Using a log-normal-like distribution which is more realistic for salaries
-    const minSalary = 3000;
-    const maxSalary = 50000;
-    const medianSalary = 4500; // Median NET salary
-    const numPoints = 100;
+    const medianSalary = 4500; // Median NET salary - this should be at the PEAK
+    const numPoints = 200;
     
+    // Create a normal distribution centered on the median (4,500 MAD)
+    // The peak of the curve will be exactly at the median
     for (let i = 0; i <= numPoints; i++) {
-      // Create a skewed distribution (more people at lower salaries)
       const t = i / numPoints;
       
-      // Use exponential curve to create realistic salary distribution
-      const salary = minSalary + (maxSalary - minSalary) * Math.pow(t, 2.5);
+      // Map t (0 to 1) to salary range (3k to 50k) with proper scaling
+      // Use a more linear approach to ensure median is at center
+      const minSalary = 3000;
+      const maxSalary = 50000;
+      const salary = minSalary + (maxSalary - minSalary) * t;
       
-      // Calculate density using a modified log-normal distribution
-      // Adjusted to center around 4,500 MAD median
-      const logSalary = Math.log(salary);
-      const mu = Math.log(medianSalary); // Log of median salary (4,500 MAD)
-      const sigma = 0.75; // Standard deviation in log space (adjusted for better fit)
+      // Calculate normal distribution density with median at peak
+      // Standard normal distribution: peak at mean (which equals median for normal dist)
+      const mean = medianSalary; // 4,500 MAD - this is where the peak will be
+      const stdDev = 2500; // Standard deviation in MAD
       
-      const density = Math.exp(-0.5 * Math.pow((logSalary - mu) / sigma, 2)) / (salary * sigma * Math.sqrt(2 * Math.PI));
+      // Normal distribution formula
+      const exponent = -0.5 * Math.pow((salary - mean) / stdDev, 2);
+      const density = Math.exp(exponent) / (stdDev * Math.sqrt(2 * Math.PI));
       
-      // Scale density for visualization
-      const y = density * 45000; // Adjusted scaling
+      // Scale for visualization
+      const y = density * 8000; // Scaling factor for chart display
+      
+      // Calculate x coordinate for chart (-5 to 5 range)
+      const x = ((salary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
       
       // Calculate realistic percentile
       const percentile = calculateRealisticPercentile(salary);
       
       points.push({
-        x: t * 10 - 5, // Scale x for chart display
+        x: x,
         y: y,
         salary: salary,
         percentile: percentile
@@ -254,18 +258,15 @@ export default function SalaryCalculator() {
     // Clamp user salary to our range
     const clampedSalary = Math.max(minSalary, Math.min(maxSalary, userNetSalary));
     
-    // Calculate position (0 to 1)
-    const position = Math.pow((clampedSalary - minSalary) / (maxSalary - minSalary), 1/2.5);
+    // Calculate x coordinate (-5 to 5)
+    const x = ((clampedSalary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
     
-    // Convert to x coordinate (-5 to 5)
-    const x = position * 10 - 5;
-    
-    // Calculate density at this point (adjusted for 4,500 MAD median)
-    const logSalary = Math.log(clampedSalary);
-    const mu = Math.log(4500); // Median salary
-    const sigma = 0.75;
-    const density = Math.exp(-0.5 * Math.pow((logSalary - mu) / sigma, 2)) / (clampedSalary * sigma * Math.sqrt(2 * Math.PI));
-    const y = density * 45000;
+    // Calculate density at this point using same formula as curve
+    const mean = 4500; // Median salary
+    const stdDev = 2500;
+    const exponent = -0.5 * Math.pow((clampedSalary - mean) / stdDev, 2);
+    const density = Math.exp(exponent) / (stdDev * Math.sqrt(2 * Math.PI));
+    const y = density * 8000;
     
     // Use realistic percentile calculation
     const percentile = calculateRealisticPercentile(userNetSalary);
@@ -278,21 +279,21 @@ export default function SalaryCalculator() {
     };
   };
 
-  // Calculate x position for median and average lines
+  // Calculate x position for median line (should be at peak of curve)
   const getMedianPosition = () => {
     const medianSalary = 4500;
     const minSalary = 3000;
     const maxSalary = 50000;
-    const position = Math.pow((medianSalary - minSalary) / (maxSalary - minSalary), 1/2.5);
-    return position * 10 - 5;
+    // Linear mapping to ensure median is at the center/peak
+    return ((medianSalary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
   };
 
+  // Calculate x position for average line
   const getAveragePosition = () => {
     const averageSalary = 5800;
     const minSalary = 3000;
     const maxSalary = 50000;
-    const position = Math.pow((averageSalary - minSalary) / (maxSalary - minSalary), 1/2.5);
-    return position * 10 - 5;
+    return ((averageSalary - minSalary) / (maxSalary - minSalary)) * 10 - 5;
   };
 
   const CustomTooltip = ({ active, payload }: any) => {
@@ -562,7 +563,7 @@ export default function SalaryCalculator() {
               </div>
             </div>
 
-            {/* Normal Distribution Chart for NET salaries with 3k-50k+ range and median at 4,500 MAD */}
+            {/* Normal Distribution Chart - FIXED: Median now at peak */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-4">
                 <div className="bg-indigo-100 p-2 rounded-lg">
@@ -597,7 +598,7 @@ export default function SalaryCalculator() {
                       tickFormatter={(value) => {
                         // Convert x back to salary for display
                         const t = (value + 5) / 10; // Convert to 0-1 range
-                        const salary = 3000 + (50000 - 3000) * Math.pow(t, 2.5);
+                        const salary = 3000 + (50000 - 3000) * t;
                         return `${(salary / 1000).toFixed(0)}k`;
                       }}
                       fontSize={12}
@@ -619,11 +620,11 @@ export default function SalaryCalculator() {
                       fill="url(#distributionGradient)"
                     />
                     
-                    {/* Median line (4,500 MAD NET) */}
+                    {/* Median line (4,500 MAD NET) - Now at the PEAK of the curve */}
                     <ReferenceLine 
                       x={getMedianPosition()} 
                       stroke="#10b981" 
-                      strokeWidth={2}
+                      strokeWidth={3}
                       strokeDasharray="8 4"
                       label={{ value: "Médiane (4,500 MAD)", position: "topLeft", fill: "#10b981", fontSize: 12, fontWeight: "bold" }}
                     />
@@ -659,7 +660,7 @@ export default function SalaryCalculator() {
                           ~68% des salaires NET
                         </div>
                         <div className="text-xs text-gray-600 mt-1">
-                          3k - 7k MAD
+                          2k - 7k MAD
                         </div>
                       </div>
                     </div>
@@ -671,7 +672,7 @@ export default function SalaryCalculator() {
                           ~95% des salaires NET
                         </div>
                         <div className="text-xs text-gray-600 mt-1">
-                          3k - 15k MAD
+                          Presque tous les salaires
                         </div>
                       </div>
                     </div>
@@ -701,9 +702,10 @@ export default function SalaryCalculator() {
                 <div className="bg-white/70 p-4 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-2">📊 Lecture du graphique</h4>
                   <p className="text-gray-700">
-                    Cette courbe montre la distribution réaliste des salaires <strong>NET</strong> au Maroc, 
-                    de 3 000 MAD à 50 000+ MAD. La <span className="text-green-600 font-semibold">ligne verte</span> indique 
-                    la médiane (4 500 MAD NET) et la <span className="text-amber-600 font-semibold">ligne orange</span> la moyenne (5 800 MAD NET).
+                    Cette courbe normale montre la distribution des salaires <strong>NET</strong> au Maroc. 
+                    La <span className="text-green-600 font-semibold">ligne verte (médiane)</span> est maintenant 
+                    exactement au <strong>pic de la courbe</strong> à 4 500 MAD NET, et la 
+                    <span className="text-amber-600 font-semibold"> ligne orange (moyenne)</span> à 5 800 MAD NET.
                   </p>
                 </div>
                 
@@ -730,7 +732,7 @@ export default function SalaryCalculator() {
                 <strong>Sources :</strong> Données basées sur les enquêtes HCP (Haut-Commissariat au Plan) 2024-2025, 
                 études sectorielles et rapports du marché de l'emploi au Maroc. Les statistiques concernent 
                 principalement le secteur privé formel. La distribution est centrée sur la médiane de 
-                <strong> 4 500 MAD NET</strong> avec une moyenne de <strong>5 800 MAD NET</strong>.
+                <strong> 4 500 MAD NET</strong> (pic de la courbe) avec une moyenne de <strong>5 800 MAD NET</strong>.
               </p>
             </div>
           </section>
