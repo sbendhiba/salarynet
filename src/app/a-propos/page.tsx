@@ -139,13 +139,6 @@ export default function APropos() {
                 Pour des questions spécifiques à votre situation, consultez un professionnel qualifié.
               </p>
             </section>
-
-            <div className="bg-gray-50 p-4 rounded-lg mt-8">
-              <p className="text-sm text-gray-600">
-                <strong>Dernière mise à jour :</strong> Janvier 2025<br />
-                <strong>Version :</strong> 2025.1
-              </p>
-            </div>
           </div>
         </div>
       </main>
