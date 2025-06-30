@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import { Scale, BookOpen, FileText, AlertCircle, Clock, DollarSign, Users, Shield } from 'lucide-react';
 
 export const metadata = {

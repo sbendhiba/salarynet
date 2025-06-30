@@ -1,6 +1,6 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import SalaryCalculator from '@/components/SalaryCalculator';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import SalaryCalculator from '../components/SalaryCalculator';
 import Link from 'next/link';
 import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users } from 'lucide-react';
 
