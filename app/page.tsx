@@ -26,7 +26,7 @@ export default function Home() {
               Au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
               La <strong>CNSS (Caisse Nationale de Sécurité Sociale)</strong> représente 4,29% de votre salaire brut 
               (plafonné à 6 000 MAD/mois), l'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
-              assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d'Emploi)</strong> de 0,19% 
+              assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d\'Emploi)</strong> de 0,19% 
               (également plafonné à 6 000 MAD/mois). Les <strong>frais professionnels</strong> représentent 25% 
               du salaire brut (plafonnés à 2 916,66 MAD/mois). Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> 
               est calculé selon un barème progressif 2025 appliqué au revenu net imposable mensuel.
