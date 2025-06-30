@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import { Mail, Calculator, Shield, Users } from 'lucide-react';
 
 export const metadata = {
