@@ -895,30 +895,6 @@ export default function SalaryCalculator() {
                 {/* Percentile labels overlay */}
                 <div className="absolute inset-0 pointer-events-none">
                   <div className="relative h-full w-full">
-                    {/* 68% area indicator */}
-                    <div className="absolute" style={{ left: '20%', top: '60%', width: '60%' }}>
-                      <div className="text-center">
-                        <div className="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs font-semibold inline-block">
-                          ~68% des salaires NET
-                        </div>
-                        <div className="text-xs text-gray-600 mt-1">
-                          2k - 7k MAD
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* 95% area indicator */}
-                    <div className="absolute" style={{ left: '10%', top: '75%', width: '80%' }}>
-                      <div className="text-center">
-                        <div className="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs font-semibold inline-block">
-                          ~95% des salaires NET
-                        </div>
-                        <div className="text-xs text-gray-600 mt-1">
-                          Presque tous les salaires
-                        </div>
-                      </div>
-                    </div>
-                    
                     {/* User position indicator */}
                     {getUserPositionOnCurve() && (
                       <div 
