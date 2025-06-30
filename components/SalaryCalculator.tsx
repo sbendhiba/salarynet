@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calculator, FileText, PieChart, TrendingUp, BarChart3 } from 'lucide-react';
+import { Calculator, FileText, PieChart, TrendingUp, BarChart3, ChevronDown, ChevronUp, Settings } from 'lucide-react';
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Area, AreaChart, ReferenceLine } from 'recharts';
 
 interface SalaryResult {
@@ -12,6 +12,8 @@ interface SalaryResult {
   fraisProfessionnels: number;
   irDeduction: number;
   netSalary: number;
+  seniorityBonus?: number;
+  dependentsDeduction?: number;
 }
 
 interface ChartData {
@@ -33,16 +35,42 @@ interface NormalDistributionPoint {
   percentile: number;
 }
 
+interface AdvancedOptions {
+  customAmoRate: number;
+  dependents: number;
+  yearsOfService: number;
+}
+
 export default function SalaryCalculator() {
   const [grossSalary, setGrossSalary] = useState<string>('');
   const [result, setResult] = useState<SalaryResult | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [advancedOptions, setAdvancedOptions] = useState<AdvancedOptions>({
+    customAmoRate: 2.26,
+    dependents: 0,
+    yearsOfService: 0
+  });
 
-  const calculateIR = (grossSalary: number, cnssDeduction: number, amoDeduction: number, ipeDeduction: number, fraisProfessionnels: number): number => {
+  // Calculate seniority bonus based on years of service
+  const calculateSeniorityBonus = (grossSalary: number, yearsOfService: number): number => {
+    if (yearsOfService < 2) return 0;
+    
+    let rate = 0;
+    if (yearsOfService >= 25) rate = 0.25;
+    else if (yearsOfService >= 20) rate = 0.20;
+    else if (yearsOfService >= 12) rate = 0.15;
+    else if (yearsOfService >= 5) rate = 0.10;
+    else if (yearsOfService >= 2) rate = 0.05;
+    
+    return grossSalary * rate;
+  };
+
+  const calculateIR = (grossSalary: number, cnssDeduction: number, amoDeduction: number, ipeDeduction: number, fraisProfessionnels: number, dependents: number = 0): { irDeduction: number, dependentsDeduction: number } => {
     // Calculate RNI (Revenu Net Imposable) = gross - cotisations - frais professionnels
     const rni = grossSalary - cnssDeduction - amoDeduction - ipeDeduction - fraisProfessionnels;
 
     // Apply 2025 IR brackets to monthly RNI
-    if (rni <= 3333.33) return 0;
+    if (rni <= 3333.33) return { irDeduction: 0, dependentsDeduction: 0 };
     
     let tax = 0;
     
@@ -58,41 +86,65 @@ export default function SalaryCalculator() {
       tax = rni * 0.10 - 333.33;
     }
     
-    return Math.max(0, tax);
+    const baseTax = Math.max(0, tax);
+    
+    // Calculate dependents deduction (500 MAD per year per dependent, so 500/12 per month)
+    const dependentsDeduction = dependents * (500 / 12);
+    
+    // Apply dependents deduction to reduce IR
+    const finalTax = Math.max(0, baseTax - dependentsDeduction);
+    
+    return { 
+      irDeduction: finalTax, 
+      dependentsDeduction: Math.min(dependentsDeduction, baseTax) // Can't deduct more than the tax owed
+    };
   };
 
   const calculateSalary = () => {
     const gross = parseFloat(grossSalary);
     if (!gross || gross <= 0) return;
 
-    // CNSS is capped at 6000 MAD per month
-    const cnssBase = Math.min(gross, 6000);
+    // Calculate seniority bonus first
+    const seniorityBonus = calculateSeniorityBonus(gross, advancedOptions.yearsOfService);
+    const adjustedGross = gross + seniorityBonus;
+
+    // CNSS is capped at 6000 MAD per month (applied to adjusted gross)
+    const cnssBase = Math.min(adjustedGross, 6000);
     const cnssDeduction = cnssBase * 0.0429;
     
-    // AMO on full gross salary
-    const amoDeduction = gross * 0.0226;
+    // AMO with custom rate (applied to adjusted gross)
+    const amoDeduction = adjustedGross * (advancedOptions.customAmoRate / 100);
     
-    // IPE is capped at 6000 MAD per month
-    const ipeBase = Math.min(gross, 6000);
+    // IPE is capped at 6000 MAD per month (applied to adjusted gross)
+    const ipeBase = Math.min(adjustedGross, 6000);
     const ipeDeduction = ipeBase * 0.0019;
     
-    // Frais professionnels: 25% of gross salary, capped at 2916.66 MAD
-    const fraisProfessionnels = Math.min(gross * 0.25, 2916.66);
+    // Frais professionnels: 25% of adjusted gross salary, capped at 2916.66 MAD
+    const fraisProfessionnels = Math.min(adjustedGross * 0.25, 2916.66);
     
-    // Calculate IR
-    const irDeduction = calculateIR(gross, cnssDeduction, amoDeduction, ipeDeduction, fraisProfessionnels);
+    // Calculate IR with dependents
+    const { irDeduction, dependentsDeduction } = calculateIR(
+      adjustedGross, 
+      cnssDeduction, 
+      amoDeduction, 
+      ipeDeduction, 
+      fraisProfessionnels, 
+      advancedOptions.dependents
+    );
     
-    // Net salary = gross - all deductions
-    const netSalary = gross - cnssDeduction - amoDeduction - ipeDeduction - irDeduction;
+    // Net salary = adjusted gross - all deductions
+    const netSalary = adjustedGross - cnssDeduction - amoDeduction - ipeDeduction - irDeduction;
 
     setResult({
-      grossSalary: gross,
+      grossSalary: adjustedGross,
       cnssDeduction,
       amoDeduction,
       ipeDeduction,
       fraisProfessionnels,
       irDeduction,
-      netSalary
+      netSalary,
+      seniorityBonus: seniorityBonus > 0 ? seniorityBonus : undefined,
+      dependentsDeduction: dependentsDeduction > 0 ? dependentsDeduction : undefined
     });
   };
 
@@ -108,7 +160,7 @@ export default function SalaryCalculator() {
   const getChartData = (): ChartData[] => {
     if (!result) return [];
     
-    return [
+    const data = [
       {
         name: 'Salaire Net',
         value: result.netSalary,
@@ -135,6 +187,17 @@ export default function SalaryCalculator() {
         color: '#dc2626'
       }
     ];
+
+    // Add seniority bonus if present
+    if (result.seniorityBonus && result.seniorityBonus > 0) {
+      data.push({
+        name: 'Prime Ancienneté',
+        value: result.seniorityBonus,
+        color: '#8b5cf6'
+      });
+    }
+
+    return data;
   };
 
   const getPercentileData = (): PercentileData[] => {
@@ -338,6 +401,16 @@ export default function SalaryCalculator() {
     return null;
   };
 
+  // Get seniority rate description
+  const getSeniorityDescription = (years: number): string => {
+    if (years < 2) return "Aucune prime d'ancienneté";
+    if (years < 5) return "Prime d'ancienneté: 5%";
+    if (years < 12) return "Prime d'ancienneté: 10%";
+    if (years < 20) return "Prime d'ancienneté: 15%";
+    if (years < 25) return "Prime d'ancienneté: 20%";
+    return "Prime d'ancienneté: 25%";
+  };
+
   return (
     <div className="space-y-8">
       {/* Section 1: Formulaire */}
@@ -362,6 +435,122 @@ export default function SalaryCalculator() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 text-center text-lg"
             />
           </div>
+
+          {/* Advanced Options Toggle */}
+          <div className="mt-4">
+            <button
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="w-full flex items-center justify-center gap-2 text-gray-600 hover:text-teal-600 transition-colors duration-200 py-2 border border-gray-200 rounded-lg hover:border-teal-300"
+            >
+              <Settings className="w-4 h-4" />
+              <span className="text-sm font-medium">Calcul avancé</span>
+              {showAdvanced ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+
+          {/* Advanced Options Panel */}
+          {showAdvanced && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 space-y-4">
+              <h3 className="text-sm font-semibold text-gray-800 mb-3">Options avancées</h3>
+              
+              {/* Custom AMO Rate */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Taux AMO personnalisé (%)
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="10"
+                  value={advancedOptions.customAmoRate}
+                  onChange={(e) => setAdvancedOptions(prev => ({
+                    ...prev,
+                    customAmoRate: parseFloat(e.target.value) || 2.26
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">Taux standard: 2,26%</p>
+              </div>
+
+              {/* Number of Dependents */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nombre de personnes à charge
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  value={advancedOptions.dependents}
+                  onChange={(e) => setAdvancedOptions(prev => ({
+                    ...prev,
+                    dependents: parseInt(e.target.value) || 0
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Déduction IR: 500 MAD/an par personne à charge ({formatCurrency(500/12)}/mois)
+                </p>
+              </div>
+
+              {/* Years of Service */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Ancienneté (années de service)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="40"
+                  value={advancedOptions.yearsOfService}
+                  onChange={(e) => setAdvancedOptions(prev => ({
+                    ...prev,
+                    yearsOfService: parseInt(e.target.value) || 0
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  {getSeniorityDescription(advancedOptions.yearsOfService)}
+                </p>
+              </div>
+
+              {/* Seniority Scale Info */}
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r-lg">
+                <h4 className="text-xs font-semibold text-blue-800 mb-2">Barème prime d'ancienneté (Art. 350 Code du travail)</h4>
+                <div className="text-xs text-blue-700 space-y-1">
+                  <div className="flex justify-between">
+                    <span>0-2 ans:</span>
+                    <span className="font-medium">0%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>2-5 ans:</span>
+                    <span className="font-medium">5%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>5-12 ans:</span>
+                    <span className="font-medium">10%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>12-20 ans:</span>
+                    <span className="font-medium">15%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>20-25 ans:</span>
+                    <span className="font-medium">20%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>25+ ans:</span>
+                    <span className="font-medium">25%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <button
             onClick={calculateSalary}
@@ -398,15 +587,28 @@ export default function SalaryCalculator() {
 
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-gray-600">Salaire brut</span>
-                    <span className="font-semibold">{formatCurrency(result.grossSalary)}</span>
+                    <span className="text-gray-600">Salaire brut de base</span>
+                    <span className="font-semibold">{formatCurrency(parseFloat(grossSalary) || 0)}</span>
                   </div>
+                  
+                  {result.seniorityBonus && result.seniorityBonus > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-purple-600">Prime d'ancienneté ({advancedOptions.yearsOfService} ans)</span>
+                      <span className="text-purple-600 font-semibold">+{formatCurrency(result.seniorityBonus)}</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="text-gray-800 font-medium">Salaire brut total</span>
+                    <span className="font-bold">{formatCurrency(result.grossSalary)}</span>
+                  </div>
+                  
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="text-red-600">CNSS (4,29%{result.grossSalary > 6000 ? ' - plafonné' : ''})</span>
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.cnssDeduction)}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-red-600">AMO (2,26%)</span>
+                    <span className="text-red-600">AMO ({advancedOptions.customAmoRate}%)</span>
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.amoDeduction)}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
@@ -417,6 +619,13 @@ export default function SalaryCalculator() {
                     <span className="text-red-600">IR (Impôt sur le revenu)</span>
                     <span className="text-red-600 font-semibold">-{formatCurrency(result.irDeduction)}</span>
                   </div>
+                  
+                  {result.dependentsDeduction && result.dependentsDeduction > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-green-600">Déduction personnes à charge ({advancedOptions.dependents})</span>
+                      <span className="text-green-600 font-semibold">-{formatCurrency(result.dependentsDeduction)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -465,8 +674,16 @@ export default function SalaryCalculator() {
                 RNI (Revenu Net Imposable) = {formatCurrency(result.grossSalary - result.cnssDeduction - result.amoDeduction - result.ipeDeduction - result.fraisProfessionnels)}
                 <br />
                 <span className="text-xs text-blue-600">
-                  (Salaire brut - CNSS - AMO - IPE - Frais professionnels: {formatCurrency(result.fraisProfessionnels)})
+                  (Salaire brut total - CNSS - AMO - IPE - Frais professionnels: {formatCurrency(result.fraisProfessionnels)})
                 </span>
+                {result.dependentsDeduction && result.dependentsDeduction > 0 && (
+                  <>
+                    <br />
+                    <span className="text-xs text-blue-600">
+                      Déduction personnes à charge appliquée: {formatCurrency(result.dependentsDeduction)}
+                    </span>
+                  </>
+                )}
               </p>
             </div>
           </section>
