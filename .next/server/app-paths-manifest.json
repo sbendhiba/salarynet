@@ -1,3 +1,9 @@
 {
-  "/page": "app/page.js"
+  "/_not-found": "app/_not-found.js",
+  "/code-du-travail/page": "app/code-du-travail/page.js",
+  "/faq/page": "app/faq/page.js",
+  "/page": "app/page.js",
+  "/a-propos/page": "app/a-propos/page.js",
+  "/mentions-legales/page": "app/mentions-legales/page.js",
+  "/politique-confidentialite/page": "app/politique-confidentialite/page.js"
 }
