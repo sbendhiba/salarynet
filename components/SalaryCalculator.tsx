@@ -16,53 +16,42 @@ export default function SalaryCalculator() {
   const [grossSalary, setGrossSalary] = useState<string>('');
   const [result, setResult] = useState<SalaryResult | null>(null);
 
-  const calculateIR = (annualGross: number): number => {
-    // New 2025 IR brackets
-    if (annualGross <= 33333) return 0;
+  const calculateIR = (monthlyGross: number): number => {
+    // Calculate RNI (Revenu Net Imposable) - gross minus CNSS and AMO
+    const cnssBase = Math.min(monthlyGross, 6000); // CNSS capped at 6000 MAD
+    const cnssDeduction = cnssBase * 0.0429;
+    const amoDeduction = monthlyGross * 0.0226;
+    const rni = monthlyGross - cnssDeduction - amoDeduction;
+
+    // Apply 2025 IR brackets to monthly RNI
+    if (rni <= 3333.33) return 0;
     
     let tax = 0;
-    let remainingIncome = annualGross;
     
-    // 37% for income above 150,000 MAD
-    if (remainingIncome > 150000) {
-      tax += (remainingIncome - 150000) * 0.37;
-      remainingIncome = 150000;
+    if (rni > 15000.01) {
+      tax = rni * 0.37 - 2283.33;
+    } else if (rni > 8333.34) {
+      tax = rni * 0.34 - 1833.33;
+    } else if (rni > 6666.68) {
+      tax = rni * 0.30 - 1500.00;
+    } else if (rni > 5000.01) {
+      tax = rni * 0.20 - 833.33;
+    } else if (rni > 3333.34) {
+      tax = rni * 0.10 - 333.33;
     }
     
-    // 34% for income between 83,334 and 150,000 MAD
-    if (remainingIncome > 83334) {
-      tax += (remainingIncome - 83334) * 0.34;
-      remainingIncome = 83334;
-    }
-    
-    // 30% for income between 66,668 and 83,333 MAD
-    if (remainingIncome > 66668) {
-      tax += (remainingIncome - 66668) * 0.30;
-      remainingIncome = 66668;
-    }
-    
-    // 20% for income between 50,001 and 66,667 MAD
-    if (remainingIncome > 50001) {
-      tax += (remainingIncome - 50001) * 0.20;
-      remainingIncome = 50001;
-    }
-    
-    // 10% for income between 33,334 and 50,000 MAD
-    if (remainingIncome > 33334) {
-      tax += (remainingIncome - 33334) * 0.10;
-    }
-    
-    return tax / 12; // Monthly IR
+    return Math.max(0, tax);
   };
 
   const calculateSalary = () => {
     const gross = parseFloat(grossSalary);
     if (!gross || gross <= 0) return;
 
-    const cnssDeduction = gross * 0.0429;
+    // CNSS is capped at 6000 MAD per month
+    const cnssBase = Math.min(gross, 6000);
+    const cnssDeduction = cnssBase * 0.0429;
     const amoDeduction = gross * 0.0226;
-    const annualGross = gross * 12;
-    const irDeduction = calculateIR(annualGross);
+    const irDeduction = calculateIR(gross);
     const netSalary = gross - cnssDeduction - amoDeduction - irDeduction;
 
     setResult({
@@ -167,7 +156,7 @@ export default function SalaryCalculator() {
                 <span className="font-semibold">{formatCurrency(result.grossSalary)}</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                <span className="text-red-600">CNSS (4,29%)</span>
+                <span className="text-red-600">CNSS (4,29%{result.grossSalary > 6000 ? ' - plafonné' : ''})</span>
                 <span className="text-red-600 font-semibold">-{formatCurrency(result.cnssDeduction)}</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-200">

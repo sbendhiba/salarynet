@@ -25,29 +25,29 @@ export default function Home() {
             <p className="text-gray-700 leading-relaxed mb-4">
               Au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
               La <strong>CNSS (Caisse Nationale de Sécurité Sociale)</strong> représente 4,29% de votre salaire brut 
-              et couvre votre protection sociale. L'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
+              (plafonné à 6 000 MAD/mois) et couvre votre protection sociale. L'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
               assure votre couverture médicale. Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> est calculé 
-              selon un barème progressif 2025 appliqué au salaire annuel avec les tranches suivantes :
+              selon un barème progressif 2025 appliqué au revenu net imposable mensuel avec les tranches suivantes :
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
-              <h4 className="font-semibold text-blue-800 mb-2">Barème IR 2025 :</h4>
+              <h4 className="font-semibold text-blue-800 mb-2">Barème IR 2025 (mensuel) :</h4>
               <ul className="text-blue-700 text-sm space-y-1">
-                <li>• 0% : jusqu'à 33 333 MAD/an</li>
-                <li>• 10% : de 33 334 à 50 000 MAD/an</li>
-                <li>• 20% : de 50 001 à 66 667 MAD/an</li>
-                <li>• 30% : de 66 668 à 83 333 MAD/an</li>
-                <li>• 34% : de 83 334 à 150 000 MAD/an</li>
-                <li>• 37% : au-delà de 150 000 MAD/an</li>
+                <li>• 0% : jusqu'à 3 333,33 MAD/mois</li>
+                <li>• 10% : de 3 333,34 à 5 000 MAD/mois</li>
+                <li>• 20% : de 5 000,01 à 6 666,67 MAD/mois</li>
+                <li>• 30% : de 6 666,68 à 8 333,33 MAD/mois</li>
+                <li>• 34% : de 8 333,34 à 15 000 MAD/mois</li>
+                <li>• 37% : au-delà de 15 000 MAD/mois</li>
               </ul>
             </div>
 
             <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-amber-800 mb-2">Exemple pratique :</h4>
               <p className="text-amber-700 text-sm">
-                Pour un salaire brut de 10 000 MAD, le salarié en CDI paie environ 429 MAD pour la CNSS, 
-                226 MAD pour l'AMO, et un IR d'environ 1 667 MAD selon les nouvelles tranches 2025, 
-                soit un net d'environ 7 678 MAD.
+                Pour un salaire brut de 10 000 MAD, le salarié paie 257,40 MAD pour la CNSS (4,29% de 6 000 MAD plafonné), 
+                226 MAD pour l'AMO (2,26% de 10 000 MAD), et un IR d'environ 1 667 MAD calculé sur le RNI, 
+                soit un net d'environ 7 850 MAD.
               </p>
             </div>
           </div>
