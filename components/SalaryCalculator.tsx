@@ -198,7 +198,8 @@ export default function SalaryCalculator() {
     return 99.5; // Cap at 99.5% for very high salaries
   };
 
-  // Generate normal distribution curve data for NET salaries with proper 3k-50k+ range
+  // Generate normal distribution curve data for NET salaries with proper 3k-50k range
+  // Adjusted to have median at 4,500 MAD NET
   const getNormalDistributionData = (): NormalDistributionPoint[] => {
     const points: NormalDistributionPoint[] = [];
     
@@ -206,6 +207,7 @@ export default function SalaryCalculator() {
     // Using a log-normal-like distribution which is more realistic for salaries
     const minSalary = 3000;
     const maxSalary = 50000;
+    const medianSalary = 4500; // Median NET salary
     const numPoints = 100;
     
     for (let i = 0; i <= numPoints; i++) {
@@ -216,14 +218,15 @@ export default function SalaryCalculator() {
       const salary = minSalary + (maxSalary - minSalary) * Math.pow(t, 2.5);
       
       // Calculate density using a modified log-normal distribution
+      // Adjusted to center around 4,500 MAD median
       const logSalary = Math.log(salary);
-      const mu = Math.log(4500); // Log of median salary
-      const sigma = 0.8; // Standard deviation in log space
+      const mu = Math.log(medianSalary); // Log of median salary (4,500 MAD)
+      const sigma = 0.75; // Standard deviation in log space (adjusted for better fit)
       
       const density = Math.exp(-0.5 * Math.pow((logSalary - mu) / sigma, 2)) / (salary * sigma * Math.sqrt(2 * Math.PI));
       
       // Scale density for visualization
-      const y = density * 50000;
+      const y = density * 45000; // Adjusted scaling
       
       // Calculate realistic percentile
       const percentile = calculateRealisticPercentile(salary);
@@ -257,12 +260,12 @@ export default function SalaryCalculator() {
     // Convert to x coordinate (-5 to 5)
     const x = position * 10 - 5;
     
-    // Calculate density at this point
+    // Calculate density at this point (adjusted for 4,500 MAD median)
     const logSalary = Math.log(clampedSalary);
-    const mu = Math.log(4500);
-    const sigma = 0.8;
+    const mu = Math.log(4500); // Median salary
+    const sigma = 0.75;
     const density = Math.exp(-0.5 * Math.pow((logSalary - mu) / sigma, 2)) / (clampedSalary * sigma * Math.sqrt(2 * Math.PI));
-    const y = density * 50000;
+    const y = density * 45000;
     
     // Use realistic percentile calculation
     const percentile = calculateRealisticPercentile(userNetSalary);
@@ -273,6 +276,23 @@ export default function SalaryCalculator() {
       salary: userNetSalary,
       percentile: percentile
     };
+  };
+
+  // Calculate x position for median and average lines
+  const getMedianPosition = () => {
+    const medianSalary = 4500;
+    const minSalary = 3000;
+    const maxSalary = 50000;
+    const position = Math.pow((medianSalary - minSalary) / (maxSalary - minSalary), 1/2.5);
+    return position * 10 - 5;
+  };
+
+  const getAveragePosition = () => {
+    const averageSalary = 5800;
+    const minSalary = 3000;
+    const maxSalary = 50000;
+    const position = Math.pow((averageSalary - minSalary) / (maxSalary - minSalary), 1/2.5);
+    return position * 10 - 5;
   };
 
   const CustomTooltip = ({ active, payload }: any) => {
@@ -542,7 +562,7 @@ export default function SalaryCalculator() {
               </div>
             </div>
 
-            {/* Normal Distribution Chart for NET salaries with 3k-50k+ range */}
+            {/* Normal Distribution Chart for NET salaries with 3k-50k+ range and median at 4,500 MAD */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-4">
                 <div className="bg-indigo-100 p-2 rounded-lg">
@@ -597,6 +617,24 @@ export default function SalaryCalculator() {
                       stroke="#3b82f6"
                       strokeWidth={2}
                       fill="url(#distributionGradient)"
+                    />
+                    
+                    {/* Median line (4,500 MAD NET) */}
+                    <ReferenceLine 
+                      x={getMedianPosition()} 
+                      stroke="#10b981" 
+                      strokeWidth={2}
+                      strokeDasharray="8 4"
+                      label={{ value: "Médiane (4,500 MAD)", position: "topLeft", fill: "#10b981", fontSize: 12, fontWeight: "bold" }}
+                    />
+                    
+                    {/* Average line (5,800 MAD NET) */}
+                    <ReferenceLine 
+                      x={getAveragePosition()} 
+                      stroke="#f59e0b" 
+                      strokeWidth={2}
+                      strokeDasharray="8 4"
+                      label={{ value: "Moyenne (5,800 MAD)", position: "topRight", fill: "#f59e0b", fontSize: 12, fontWeight: "bold" }}
                     />
                     
                     {/* User position line */}
@@ -664,8 +702,8 @@ export default function SalaryCalculator() {
                   <h4 className="font-semibold text-gray-800 mb-2">📊 Lecture du graphique</h4>
                   <p className="text-gray-700">
                     Cette courbe montre la distribution réaliste des salaires <strong>NET</strong> au Maroc, 
-                    de 3 000 MAD à 50 000+ MAD. La majorité des salariés se concentrent dans la partie gauche 
-                    (salaires plus bas), avec une longue traîne vers les hauts salaires.
+                    de 3 000 MAD à 50 000+ MAD. La <span className="text-green-600 font-semibold">ligne verte</span> indique 
+                    la médiane (4 500 MAD NET) et la <span className="text-amber-600 font-semibold">ligne orange</span> la moyenne (5 800 MAD NET).
                   </p>
                 </div>
                 
@@ -691,8 +729,8 @@ export default function SalaryCalculator() {
               <p className="text-amber-800 text-sm">
                 <strong>Sources :</strong> Données basées sur les enquêtes HCP (Haut-Commissariat au Plan) 2024-2025, 
                 études sectorielles et rapports du marché de l'emploi au Maroc. Les statistiques concernent 
-                principalement le secteur privé formel. La distribution couvre maintenant la gamme complète 
-                des salaires <strong>NET</strong> de 3 000 MAD à 50 000+ MAD avec des percentiles réalistes.
+                principalement le secteur privé formel. La distribution est centrée sur la médiane de 
+                <strong> 4 500 MAD NET</strong> avec une moyenne de <strong>5 800 MAD NET</strong>.
               </p>
             </div>
           </section>
