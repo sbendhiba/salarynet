@@ -25,9 +25,11 @@ export default function Home() {
             <p className="text-gray-700 leading-relaxed mb-4">
               Au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
               La <strong>CNSS (Caisse Nationale de Sécurité Sociale)</strong> représente 4,29% de votre salaire brut 
-              (plafonné à 6 000 MAD/mois) et couvre votre protection sociale. L'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
-              assure votre couverture médicale. Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> est calculé 
-              selon un barème progressif 2025 appliqué au revenu net imposable mensuel avec les tranches suivantes :
+              (plafonné à 6 000 MAD/mois), l'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
+              assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d'Emploi)</strong> de 0,19% 
+              (également plafonné à 6 000 MAD/mois). Les <strong>frais professionnels</strong> représentent 25% 
+              du salaire brut (plafonnés à 2 916,66 MAD/mois). Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> 
+              est calculé selon un barème progressif 2025 appliqué au revenu net imposable mensuel.
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
@@ -42,12 +44,21 @@ export default function Home() {
               </ul>
             </div>
 
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg mb-4">
+              <h4 className="font-semibold text-green-800 mb-2">Calcul du RNI (Revenu Net Imposable) :</h4>
+              <p className="text-green-700 text-sm">
+                RNI = Salaire brut - CNSS - AMO - IPE - Frais professionnels
+                <br />
+                L'IR est ensuite appliqué sur ce montant selon le barème progressif.
+              </p>
+            </div>
+
             <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-amber-800 mb-2">Exemple pratique :</h4>
               <p className="text-amber-700 text-sm">
-                Pour un salaire brut de 10 000 MAD, le salarié paie 257,40 MAD pour la CNSS (4,29% de 6 000 MAD plafonné), 
-                226 MAD pour l'AMO (2,26% de 10 000 MAD), et un IR d'environ 1 667 MAD calculé sur le RNI, 
-                soit un net d'environ 7 850 MAD.
+                Pour un salaire brut de 10 000 MAD : CNSS 257,40 MAD (plafonné), AMO 226 MAD, 
+                IPE 11,40 MAD (plafonné), frais professionnels 2 500 MAD, soit un RNI de 7 005,20 MAD. 
+                L'IR calculé sur ce RNI est d'environ 611,56 MAD, donnant un salaire net d'environ 8 893,64 MAD.
               </p>
             </div>
           </div>
@@ -71,7 +82,7 @@ export default function Home() {
             <div className="border border-gray-200 rounded-lg p-4">
               <h3 className="font-medium text-gray-900 mb-2">Quelle est la différence entre brut et net ?</h3>
               <p className="text-gray-700 text-sm">
-                Le salaire brut est le montant total avant déductions, tandis que le salaire net est ce que vous recevez réellement après déduction des cotisations sociales.
+                Le salaire brut est le montant total avant déductions, tandis que le salaire net est ce que vous recevez réellement après déduction des cotisations sociales et de l'impôt sur le revenu.
               </p>
             </div>
             

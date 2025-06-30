@@ -7,6 +7,8 @@ interface SalaryResult {
   grossSalary: number;
   cnssDeduction: number;
   amoDeduction: number;
+  ipeDeduction: number;
+  fraisProfessionnels: number;
   irDeduction: number;
   netSalary: number;
 }
@@ -16,12 +18,9 @@ export default function SalaryCalculator() {
   const [grossSalary, setGrossSalary] = useState<string>('');
   const [result, setResult] = useState<SalaryResult | null>(null);
 
-  const calculateIR = (monthlyGross: number): number => {
-    // Calculate RNI (Revenu Net Imposable) - gross minus CNSS and AMO
-    const cnssBase = Math.min(monthlyGross, 6000); // CNSS capped at 6000 MAD
-    const cnssDeduction = cnssBase * 0.0429;
-    const amoDeduction = monthlyGross * 0.0226;
-    const rni = monthlyGross - cnssDeduction - amoDeduction;
+  const calculateIR = (grossSalary: number, cnssDeduction: number, amoDeduction: number, ipeDeduction: number, fraisProfessionnels: number): number => {
+    // Calculate RNI (Revenu Net Imposable) = gross - cotisations - frais professionnels
+    const rni = grossSalary - cnssDeduction - amoDeduction - ipeDeduction - fraisProfessionnels;
 
     // Apply 2025 IR brackets to monthly RNI
     if (rni <= 3333.33) return 0;
@@ -50,14 +49,29 @@ export default function SalaryCalculator() {
     // CNSS is capped at 6000 MAD per month
     const cnssBase = Math.min(gross, 6000);
     const cnssDeduction = cnssBase * 0.0429;
+    
+    // AMO on full gross salary
     const amoDeduction = gross * 0.0226;
-    const irDeduction = calculateIR(gross);
-    const netSalary = gross - cnssDeduction - amoDeduction - irDeduction;
+    
+    // IPE is capped at 6000 MAD per month
+    const ipeBase = Math.min(gross, 6000);
+    const ipeDeduction = ipeBase * 0.0019;
+    
+    // Frais professionnels: 25% of gross salary, capped at 2916.66 MAD
+    const fraisProfessionnels = Math.min(gross * 0.25, 2916.66);
+    
+    // Calculate IR
+    const irDeduction = calculateIR(gross, cnssDeduction, amoDeduction, ipeDeduction, fraisProfessionnels);
+    
+    // Net salary = gross - all deductions
+    const netSalary = gross - cnssDeduction - amoDeduction - ipeDeduction - irDeduction;
 
     setResult({
       grossSalary: gross,
       cnssDeduction,
       amoDeduction,
+      ipeDeduction,
+      fraisProfessionnels,
       irDeduction,
       netSalary
     });
@@ -67,8 +81,8 @@ export default function SalaryCalculator() {
     return new Intl.NumberFormat('fr-MA', {
       style: 'currency',
       currency: 'MAD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     }).format(amount);
   };
 
@@ -164,10 +178,29 @@ export default function SalaryCalculator() {
                 <span className="text-red-600 font-semibold">-{formatCurrency(result.amoDeduction)}</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <span className="text-red-600">IPE (0,19%{result.grossSalary > 6000 ? ' - plafonné' : ''})</span>
+                <span className="text-red-600 font-semibold">-{formatCurrency(result.ipeDeduction)}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <span className="text-blue-600">Frais professionnels (25%{result.fraisProfessionnels >= 2916.66 ? ' - plafonné' : ''})</span>
+                <span className="text-blue-600 font-semibold">-{formatCurrency(result.fraisProfessionnels)}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-200">
                 <span className="text-red-600">IR (Impôt sur le revenu)</span>
                 <span className="text-red-600 font-semibold">-{formatCurrency(result.irDeduction)}</span>
               </div>
             </div>
+          </div>
+
+          <div className="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <h4 className="font-semibold text-blue-800 mb-2">Détail du calcul IR :</h4>
+            <p className="text-blue-700 text-sm">
+              RNI (Revenu Net Imposable) = {formatCurrency(result.grossSalary - result.cnssDeduction - result.amoDeduction - result.ipeDeduction - result.fraisProfessionnels)}
+              <br />
+              <span className="text-xs text-blue-600">
+                (Salaire brut - CNSS - AMO - IPE - Frais professionnels)
+              </span>
+            </p>
           </div>
         </section>
       )}
