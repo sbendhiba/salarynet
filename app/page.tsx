@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SalaryCalculator from '@/components/SalaryCalculator';
 import Link from 'next/link';
-import { Info, HelpCircle, ChevronDown } from 'lucide-react';
+import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -10,6 +10,75 @@ export default function Home() {
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+        {/* Salary Statistics Section - Before Calculator */}
+        <section className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="bg-purple-100 p-2 rounded-lg">
+              <TrendingUp className="w-5 h-5 text-purple-600" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900">Statistiques Salariales Maroc 2025</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <BarChart3 className="w-5 h-5 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Salaire médian NET</h3>
+              </div>
+              <p className="text-2xl font-bold text-blue-600">4 500 MAD</p>
+              <p className="text-sm text-blue-600">net/mois (secteur privé)</p>
+            </div>
+            
+            <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                <h3 className="font-semibold text-green-800">Salaire moyen NET</h3>
+              </div>
+              <p className="text-2xl font-bold text-green-600">5 800 MAD</p>
+              <p className="text-sm text-green-600">net/mois (secteur privé)</p>
+            </div>
+            
+            <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Users className="w-5 h-5 text-orange-600" />
+                <h3 className="font-semibold text-orange-800">SMIG 2025 NET</h3>
+              </div>
+              <p className="text-2xl font-bold text-orange-600">3 200 MAD</p>
+              <p className="text-sm text-orange-600">net/mois (estimation)</p>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-teal-50 to-blue-50 border-l-4 border-teal-400 p-4 rounded-r-lg">
+            <h3 className="font-semibold text-teal-800 mb-2">📊 Répartition des salaires NET au Maroc</h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+              <div className="text-center">
+                <div className="font-bold text-teal-700">30%</div>
+                <div className="text-teal-600">< 3 500 MAD</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-blue-700">25%</div>
+                <div className="text-blue-600">3 500-5 000</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-green-700">25%</div>
+                <div className="text-green-600">5 000-8 000</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-orange-700">12%</div>
+                <div className="text-orange-600">8 000-12 000</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-red-700">8%</div>
+                <div className="text-red-600">> 12 000 MAD</div>
+              </div>
+            </div>
+            <p className="text-teal-700 text-xs mt-3">
+              <strong>Source :</strong> Enquêtes HCP 2024-2025, secteur privé formel. 
+              Utilisez notre calculateur ci-dessous pour voir où vous vous situez dans cette distribution.
+            </p>
+          </div>
+        </section>
+
         <SalaryCalculator />
 
         {/* Section 3: Explication */}
@@ -64,11 +133,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* AdSense Placeholder */}
-        <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-          <p className="text-gray-500 text-sm">Espace publicitaire AdSense</p>
-        </div>
-
         {/* Quick FAQ Preview */}
         <section className="bg-white rounded-xl shadow-lg p-6 md:p-8">
           <div className="flex items-center gap-2 mb-6">
@@ -101,5 +165,6 @@ export default function Home() {
 
       <Footer />
     </div>
+  )
   );
 }
