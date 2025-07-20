@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-07-20T01:02:56.678Z",
+  "totalClasses": 253,
+  "categories": {
+    "colors": 81,
+    "spacing": 17,
+    "layout": 11,
+    "sizing": 22,
+    "typography": 45,
+    "borders": 25,
+    "effects": 2
+  },
+  "topClasses": {
+    "colors": [
+      "bg-amber-100",
+      "bg-amber-50",
+      "bg-blue-100",
+      "bg-blue-50",
+      "bg-blue-500",
+      "bg-blue-600",
+      "bg-gradient-to-br",
+      "bg-gradient-to-r",
+      "bg-gray-100",
+      "bg-gray-200"
+    ],
+    "spacing": [
+      "gap-2",
+      "gap-3",
+      "gap-4",
+      "gap-6",
+      "gap-8",
+      "p-2",
+      "p-3",
+      "p-4",
+      "p-6",
+      "p-8"
+    ],
+    "typography": [
+      "font-bold",
+      "font-medium",
+      "font-semibold",
+      "leading-relaxed",
+      "text-2xl",
+      "text-3xl",
+      "text-amber-500",
+      "text-amber-600",
+      "text-amber-700",
+      "text-amber-800"
+    ]
+  }
+}

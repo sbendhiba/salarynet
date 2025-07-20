@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
-    "generate-sitemap": "node scripts/generate-sitemap.js"
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "analyze-css": "node scripts/optimize-css.js",
+    "build-analyze": "npm run build && npm run analyze-css"
   },
   "dependencies": {
     "next": "^14.0.4",
