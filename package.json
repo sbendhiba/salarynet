@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "postbuild": "node scripts/generate-sitemap.js && node scripts/extract-critical-css.js",
     "start": "next start",
     "lint": "next lint",
     "export": "next export",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "analyze-css": "node scripts/optimize-css.js",
-    "build-analyze": "npm run build && npm run analyze-css"
+    "build-analyze": "npm run build && npm run analyze-css",
+    "critical-css": "node scripts/extract-critical-css.js",
+    "build-optimized": "npm run build && npm run critical-css"
   },
   "dependencies": {
     "next": "^14.0.4",
