@@ -5,6 +5,13 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  // Enable compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Performance optimizations
+  poweredByHeader: false,
+  reactStrictMode: true,
   async generateBuildId() {
     return 'build'
   }
