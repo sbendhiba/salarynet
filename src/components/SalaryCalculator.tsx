@@ -594,10 +594,10 @@ export default function SalaryCalculator() {
               <div className="space-y-4">
                 <div className="bg-gradient-to-r from-teal-50 to-teal-100 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-teal-800 mb-2">Salaire net</h3>
-                  <p className="text-3xl font-bold text-teal-600">
+                  <p className="text-3xl font-bold text-teal-700">
                     {formatCurrency(result.netSalary)}
                   </p>
-                  <p className="text-sm text-teal-600 mt-1">par mois</p>
+                  <p className="text-sm text-teal-700 mt-1">par mois</p>
                 </div>
 
                 <div className="space-y-3">
@@ -645,8 +645,8 @@ export default function SalaryCalculator() {
                   
                   {result.dependentsDeduction && result.dependentsDeduction > 0 && (
                     <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                      <span className="text-green-600">Déduction personnes à charge ({advancedOptions.dependents})</span>
-                      <span className="text-green-600 font-semibold">-{formatCurrency(result.dependentsDeduction)}</span>
+                      <span className="text-green-700">Déduction personnes à charge ({advancedOptions.dependents})</span>
+                      <span className="text-green-700 font-semibold">-{formatCurrency(result.dependentsDeduction)}</span>
                     </div>
                   )}
                 </div>
@@ -692,7 +692,7 @@ export default function SalaryCalculator() {
             </div>
 
             <div className="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold text-blue-800 mb-2">Détail du calcul IR :</h4>
+              <h3 className="font-semibold text-blue-800 mb-2">Détail du calcul IR :</h3>
               <p className="text-blue-700 text-sm">
                 RNI (Revenu Net Imposable) = {formatCurrency(result.grossSalary - result.cnssDeduction - result.amoDeduction - result.socialFundDeduction - result.ipeDeduction - result.fraisProfessionnels)}
                 <br />
@@ -729,14 +729,14 @@ export default function SalaryCalculator() {
               
               <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
                 <h3 className="font-semibold text-green-800 mb-2">Salaire moyen NET</h3>
-                <p className="text-2xl font-bold text-green-600">5 800 MAD</p>
-                <p className="text-sm text-green-600">net/mois</p>
+                <p className="text-2xl font-bold text-green-700">5 800 MAD</p>
+                <p className="text-sm text-green-700">net/mois</p>
               </div>
               
               <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
                 <h3 className="font-semibold text-orange-800 mb-2">SMIG 2025 NET</h3>
-                <p className="text-2xl font-bold text-orange-600">3 200 MAD</p>
-                <p className="text-sm text-orange-600">net/mois</p>
+                <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
+                <p className="text-sm text-orange-700">net/mois</p>
               </div>
             </div>
 
@@ -777,17 +777,17 @@ export default function SalaryCalculator() {
                     </div>
                     <div className="flex justify-between">
                       <span>Votre salaire net</span>
-                      <span className="font-medium text-teal-600">{formatCurrency(result.netSalary)}</span>
+                      <span className="font-medium text-teal-700">{formatCurrency(result.netSalary)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Vs. médian NET</span>
-                      <span className={`font-medium ${result.netSalary > 4500 ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`font-medium ${result.netSalary > 4500 ? 'text-green-700' : 'text-red-600'}`}>
                         {result.netSalary > 4500 ? '+' : ''}{((result.netSalary - 4500) / 4500 * 100).toFixed(0)}%
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Vs. moyen NET</span>
-                      <span className={`font-medium ${result.netSalary > 5800 ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`font-medium ${result.netSalary > 5800 ? 'text-green-700' : 'text-red-600'}`}>
                         {result.netSalary > 5800 ? '+' : ''}{((result.netSalary - 5800) / 5800 * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -920,7 +920,7 @@ export default function SalaryCalculator() {
                   <h4 className="font-semibold text-gray-800 mb-2">📊 Lecture du graphique</h4>
                   <p className="text-gray-700">
                     Cette courbe normale montre la distribution des salaires <strong>NET</strong> au Maroc. 
-                    La <span className="text-green-600 font-semibold">ligne verte (médiane)</span> est maintenant 
+                    La <span className="text-green-700 font-semibold">ligne verte (médiane)</span> est maintenant 
                     exactement au <strong>pic de la courbe</strong> à 4 500 MAD NET, et la 
                     <span className="text-amber-600 font-semibold"> ligne orange (moyenne)</span> à 5 800 MAD NET.
                   </p>

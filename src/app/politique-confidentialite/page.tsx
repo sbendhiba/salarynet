@@ -83,7 +83,7 @@ export default function PolitiqueConfidentialite() {
               <h2 className="text-xl font-semibold text-gray-900 mb-3">7. Contact</h2>
               <p className="text-gray-700 leading-relaxed">
                 Pour toute question concernant cette politique de confidentialité, vous pouvez nous contacter 
-                via la page <a href="/a-propos" className="text-teal-600 hover:text-teal-700 underline">À propos</a>.
+                via la page <a href="/a-propos" className="text-teal-700 hover:text-teal-800 underline">À propos</a>.
               </p>
             </section>
 

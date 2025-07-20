@@ -47,7 +47,7 @@ export default function Footer() {
           <p className="text-gray-400 text-sm">
             © 2025 Calculateur Salaire Maroc. Tous droits réservés.
           </p>
-          <p className="text-gray-500 text-xs mt-2">
+          <p className="text-gray-400 text-xs mt-2">
             Les calculs sont fournis à titre indicatif. Consultez un professionnel pour des calculs précis.
           </p>
         </div>

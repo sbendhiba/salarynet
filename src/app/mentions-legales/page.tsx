@@ -71,7 +71,7 @@ export default function MentionsLegales() {
             <section>
               <h2 className="text-xl font-semibold text-gray-900 mb-3">5. Données et confidentialité</h2>
               <p className="text-gray-700 leading-relaxed">
-                Conformément à notre <a href="/politique-confidentialite" className="text-teal-600 hover:text-teal-700 underline">
+                Conformément à notre <a href="/politique-confidentialite" className="text-teal-700 hover:text-teal-800 underline">
                 politique de confidentialité</a>, aucune donnée personnelle n'est collectée ou stockée. 
                 Tous les calculs sont effectués localement dans votre navigateur.
               </p>

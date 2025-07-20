@@ -33,7 +33,7 @@ export default function Home() {
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
-              <h4 className="font-semibold text-blue-800 mb-2">Barème IR 2025 (mensuel) :</h4>
+              <h3 className="font-semibold text-blue-800 mb-2">Barème IR 2025 (mensuel) :</h3>
               <ul className="text-blue-700 text-sm space-y-1">
                 <li>• 0% : jusqu'à 3 333,33 MAD/mois</li>
                 <li>• 10% : de 3 333,34 à 5 000 MAD/mois</li>
@@ -45,7 +45,7 @@ export default function Home() {
             </div>
 
             <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg mb-4">
-              <h4 className="font-semibold text-green-800 mb-2">Calcul du RNI (Revenu Net Imposable) :</h4>
+              <h3 className="font-semibold text-green-800 mb-2">Calcul du RNI (Revenu Net Imposable) :</h3>
               <p className="text-green-700 text-sm">
                 RNI = Salaire brut - CNSS - AMO - IPE - Frais professionnels
                 <br />
@@ -54,7 +54,7 @@ export default function Home() {
             </div>
 
             <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold text-amber-800 mb-2">Exemple pratique :</h4>
+              <h3 className="font-semibold text-amber-800 mb-2">Exemple pratique :</h3>
               <p className="text-amber-700 text-sm">
                 Pour un salaire brut de 10 000 MAD : CNSS 257,40 MAD (plafonné), AMO 226 MAD, 
                 IPE 11,40 MAD (plafonné), frais professionnels 2 500 MAD, soit un RNI de 7 005,20 MAD. 
@@ -76,29 +76,29 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="bg-gradient-to-r from-teal-50 to-teal-100 p-4 rounded-lg text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <BarChart3 className="w-5 h-5 text-teal-600" />
+                <BarChart3 className="w-5 h-5 text-teal-700" />
                 <h3 className="font-semibold text-teal-800">Salaire médian NET</h3>
               </div>
-              <p className="text-2xl font-bold text-teal-600">4 500 MAD</p>
-              <p className="text-sm text-teal-600">net/mois</p>
+              <p className="text-2xl font-bold text-teal-700">4 500 MAD</p>
+              <p className="text-sm text-teal-700">net/mois</p>
             </div>
             
             <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-green-600" />
+                <TrendingUp className="w-5 h-5 text-green-700" />
                 <h3 className="font-semibold text-green-800">Salaire moyen NET</h3>
               </div>
-              <p className="text-2xl font-bold text-green-600">5 800 MAD</p>
-              <p className="text-sm text-green-600">net/mois</p>
+              <p className="text-2xl font-bold text-green-700">5 800 MAD</p>
+              <p className="text-sm text-green-700">net/mois</p>
             </div>
             
             <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Users className="w-5 h-5 text-orange-600" />
+                <Users className="w-5 h-5 text-orange-700" />
                 <h3 className="font-semibold text-orange-800">SMIG 2025 NET</h3>
               </div>
-              <p className="text-2xl font-bold text-orange-600">3 200 MAD</p>
-              <p className="text-sm text-orange-600">net/mois</p>
+              <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
+              <p className="text-sm text-orange-700">net/mois</p>
             </div>
           </div>
 
@@ -124,7 +124,7 @@ export default function Home() {
                     <div className="w-16 bg-gray-200 rounded-full h-2">
                       <div className="bg-orange-500 h-2 rounded-full" style={{width: '25%'}}></div>
                     </div>
-                    <span className="font-medium text-orange-600">25%</span>
+                    <span className="font-medium text-orange-700">25%</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -133,7 +133,7 @@ export default function Home() {
                     <div className="w-16 bg-gray-200 rounded-full h-2">
                       <div className="bg-yellow-500 h-2 rounded-full" style={{width: '25%'}}></div>
                     </div>
-                    <span className="font-medium text-yellow-600">25%</span>
+                    <span className="font-medium text-yellow-700">25%</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -142,7 +142,7 @@ export default function Home() {
                     <div className="w-16 bg-gray-200 rounded-full h-2">
                       <div className="bg-green-500 h-2 rounded-full" style={{width: '12%'}}></div>
                     </div>
-                    <span className="font-medium text-green-600">12%</span>
+                    <span className="font-medium text-green-700">12%</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -166,7 +166,7 @@ export default function Home() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">SMIG net 2025</span>
-                  <span className="font-medium text-teal-600">3 200 MAD</span>
+                  <span className="font-medium text-teal-700">3 200 MAD</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Taux de déduction moyen</span>
@@ -188,7 +188,7 @@ export default function Home() {
           </div>
 
           <div className="mt-6 bg-teal-50 border-l-4 border-teal-400 p-4 rounded-r-lg">
-            <h4 className="font-semibold text-teal-800 mb-2">💡 À savoir</h4>
+            <h3 className="font-semibold text-teal-800 mb-2">💡 À savoir</h3>
             <p className="text-teal-700 text-sm">
               Ces statistiques concernent le secteur privé formel au Maroc. Le salaire médian de 
               <strong> 4 500 MAD NET</strong> signifie que 50% des salariés gagnent moins et 50% gagnent plus. 
@@ -217,7 +217,7 @@ export default function Home() {
             <div className="text-center">
               <Link 
                 href="/faq" 
-                className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-medium"
+                className="inline-flex items-center gap-2 text-teal-700 hover:text-teal-800 font-medium"
               >
                 Voir toutes les questions fréquentes
                 <ChevronDown className="w-4 h-4" />
