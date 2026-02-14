@@ -94,20 +94,6 @@ export default function APropos() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Méthodologie de calcul</h2>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Nos calculs se basent sur la législation fiscale et sociale marocaine officielle :
-              </p>
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-                <ul className="text-blue-800 space-y-1 text-sm">
-                  <li>• <strong>CNSS</strong> : 4,29% du salaire brut (protection sociale)</li>
-                  <li>• <strong>AMO</strong> : 2,26% du salaire brut (assurance maladie)</li>
-                  <li>• <strong>IR</strong> : Barème progressif 2025 appliqué au salaire annuel</li>
-                </ul>
-              </div>
-            </section>
-
-            <section>
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Limites et recommandations</h2>
               <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
                 <p className="text-amber-800 leading-relaxed">

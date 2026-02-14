@@ -44,11 +44,14 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 pt-6 text-center">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm mb-3">
             © 2025 Calculateur Salaire Maroc. Tous droits réservés.
           </p>
-          <p className="text-gray-400 text-xs mt-2">
+          <p className="text-gray-400 text-xs mb-2">
             Les calculs sont fournis à titre indicatif. Consultez un professionnel pour des calculs précis.
+          </p>
+          <p className="text-gray-400 text-xs mt-3">
+            Voir aussi : <a href="https://indemnitelicenciement.ma/" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">Calculateur d'Indemnités de Licenciement</a>
           </p>
         </div>
       </div>
