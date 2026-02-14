@@ -47,6 +47,12 @@ export const sitePages: SitemapEntry[] = [
     lastModified: new Date().toISOString()
   },
   {
+    url: '/guide',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+    lastModified: new Date().toISOString()
+  },
+  {
     url: '/faq',
     changeFrequency: 'weekly',
     priority: 0.8,

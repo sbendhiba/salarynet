@@ -1,67 +1,101 @@
 'use client';
 
 import Link from 'next/link';
-import { Calculator, Menu, X } from 'lucide-react';
+import { Calculator, Menu, X, ChevronDown, Home, HelpCircle, Scale, Wrench, Info, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
 
   const navigation = [
-    { name: 'Accueil', href: '/' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Code du Travail', href: '/code-du-travail' },
-    { name: 'À propos', href: '/a-propos' },
+    { name: 'Accueil', href: '/', icon: Home },
+    { name: 'Guide', href: '/guide', icon: BookOpen },
+    { name: 'FAQ', href: '/faq', icon: HelpCircle },
+    { name: 'Code du Travail', href: '/code-du-travail', icon: Scale },
+    { 
+      name: 'Nos Outils', 
+      icon: Wrench,
+      hasSubmenu: true,
+      submenu: [
+        { name: 'Calculateur Licenciement', href: 'https://indemnitelicenciement.ma/', external: true }
+      ]
+    },
+    { name: 'À propos', href: '/a-propos', icon: Info },
   ];
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="bg-teal-600 p-2 rounded-lg">
-              <Calculator className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Calcul Salaire Net Maroc 2025
-              </h1>
-              <div className="flex items-center gap-2">
-                <p className="text-gray-600 text-sm md:text-base">
-                  Simulateur Brut en Net - Estimation précise et instantanée
-                </p>
-                {/* Correct Moroccan Flag SVG */}
-                <svg 
-                  className="w-6 h-4 flex-shrink-0" 
-                  viewBox="0 0 900 600" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Red background */}
-                  <rect width="900" height="600" fill="#C1272D"/>
-                  
-                  {/* Green pentagram (5-pointed star) in the center */}
-                  <g transform="translate(450,300)">
-                    <path 
-                      d="M 0,-90 L 21.27,-27.81 L 85.32,-27.81 L 34.02,13.77 L 55.29,75.96 L 0,34.38 L -55.29,75.96 L -34.02,13.77 L -85.32,-27.81 L -21.27,-27.81 Z" 
-                      fill="#006233" 
-                      stroke="none"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600">
+              <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+              <line x1="8" x2="16" y1="6" y2="6"></line>
+              <line x1="16" x2="16" y1="14" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+              Calculateur Salaire Net
+            </h1>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200"
-              >
-                {item.name}
-              </Link>
+              item.hasSubmenu ? (
+                <div 
+                  key={item.name}
+                  className="relative group"
+                >
+                  <button
+                    className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 flex items-center gap-1.5"
+                  >
+                    {item.icon && <item.icon className="w-4 h-4" />}
+                    {item.name}
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    {item.submenu?.map((subItem) => (
+                      <a
+                        key={subItem.name}
+                        href={subItem.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition-colors duration-200"
+                      >
+                        {subItem.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : item.external ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 flex items-center gap-1.5"
+                >
+                  {item.icon && <item.icon className="w-4 h-4" />}
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 flex items-center gap-1.5"
+                >
+                  {item.icon && <item.icon className="w-4 h-4" />}
+                  {item.name}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -89,14 +123,56 @@ export default function Header() {
           >
             <div className="flex flex-col space-y-3">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                item.hasSubmenu ? (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setIsToolsOpen(!isToolsOpen)}
+                      className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2 flex items-center gap-1.5 w-full"
+                    >
+                      {item.icon && <item.icon className="w-4 h-4" />}
+                      {item.name}
+                      <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isToolsOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isToolsOpen && (
+                      <div className="pl-4 mt-2 space-y-2">
+                        {item.submenu?.map((subItem) => (
+                          <a
+                            key={subItem.name}
+                            href={subItem.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2 flex items-center gap-1.5"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.icon && <item.icon className="w-4 h-4" />}
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2 flex items-center gap-1.5"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.icon && <item.icon className="w-4 h-4" />}
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
           </nav>
