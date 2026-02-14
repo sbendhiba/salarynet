@@ -4,11 +4,20 @@ import Link from 'next/link';
 import { Calculator, Menu, X, ChevronDown, Home, HelpCircle, Scale, Wrench, Info, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 
+type NavigationItem = {
+  name: string;
+  icon: any;
+  href?: string;
+  hasSubmenu?: boolean;
+  submenu?: { name: string; href: string; external: boolean }[];
+  external?: boolean;
+};
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
 
-  const navigation = [
+  const navigation: NavigationItem[] = [
     { name: 'Accueil', href: '/', icon: Home },
     { name: 'Guide', href: '/guide', icon: BookOpen },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },
@@ -78,7 +87,7 @@ export default function Header() {
               ) : item.external ? (
                 <a
                   key={item.name}
-                  href={item.href}
+                  href={item.href || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 flex items-center gap-1.5"
@@ -89,7 +98,7 @@ export default function Header() {
               ) : (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  href={item.href || '/'}
                   className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 flex items-center gap-1.5"
                 >
                   {item.icon && <item.icon className="w-4 h-4" />}
@@ -153,7 +162,7 @@ export default function Header() {
                 ) : item.external ? (
                   <a
                     key={item.name}
-                    href={item.href}
+                    href={item.href || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2 flex items-center gap-1.5"
@@ -165,7 +174,7 @@ export default function Header() {
                 ) : (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={item.href || '/'}
                     className="text-gray-600 hover:text-teal-600 font-medium transition-colors duration-200 py-2 flex items-center gap-1.5"
                     onClick={() => setIsMenuOpen(false)}
                   >
