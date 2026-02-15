@@ -134,33 +134,33 @@ export default function SocialShare({
 
               <button
                 onClick={handleFacebookShare}
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-emerald-50 transition-colors text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 transition-colors text-left"
               >
-                <Facebook className="w-5 h-5 text-emerald-600" />
+                <Facebook className="w-5 h-5 text-blue-600" />
                 <span className="text-gray-700 font-medium">Facebook</span>
               </button>
 
               <button
                 onClick={handleTwitterShare}
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-emerald-50 transition-colors text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-sky-50 transition-colors text-left"
               >
-                <Twitter className="w-5 h-5 text-emerald-600" />
+                <Twitter className="w-5 h-5 text-sky-500" />
                 <span className="text-gray-700 font-medium">X</span>
               </button>
 
               <button
                 onClick={handleLinkedInShare}
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-emerald-50 transition-colors text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 transition-colors text-left"
               >
-                <Linkedin className="w-5 h-5 text-emerald-600" />
+                <Linkedin className="w-5 h-5 text-blue-700" />
                 <span className="text-gray-700 font-medium">LinkedIn</span>
               </button>
 
               <button
                 onClick={handleWhatsAppShare}
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-emerald-50 transition-colors text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-green-50 transition-colors text-left"
               >
-                <MessageCircle className="w-5 h-5 text-emerald-600" />
+                <MessageCircle className="w-5 h-5 text-green-600" />
                 <span className="text-gray-700 font-medium">WhatsApp</span>
               </button>
 
