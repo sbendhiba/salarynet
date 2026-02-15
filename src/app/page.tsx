@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SalaryCalculator from '../components/SalaryCalculator';
+import SocialShare from '../components/SocialShare';
 import Link from 'next/link';
 import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users, Scale } from 'lucide-react';
 
@@ -63,6 +64,11 @@ export default function Home() {
         </section>
 
         <SalaryCalculator />
+
+        <SocialShare
+          title="Calculateur Salaire Net Maroc 2025"
+          description="Calculez votre salaire net au Maroc avec notre simulateur gratuit."
+        />
 
         {/* Comment ça marche Section */}
         <section className="bg-white rounded-xl shadow-lg p-8 md:p-10">
