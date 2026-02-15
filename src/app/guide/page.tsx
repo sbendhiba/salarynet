@@ -373,7 +373,7 @@ export default function Guide() {
               </p>
               <Link 
                 href="/"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors font-medium"
+                className="inline-flex items-center gap-2 bg-teal-700 text-white px-6 py-3 rounded-lg hover:bg-teal-800 transition-colors font-medium"
               >
                 <Calculator className="w-5 h-5" />
                 Accéder au calculateur
