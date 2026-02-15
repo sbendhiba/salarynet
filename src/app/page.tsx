@@ -306,7 +306,7 @@ export default function Home() {
           <div className="text-center mt-8">
             <Link 
               href="/code-du-travail" 
-              className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors font-medium"
+              className="inline-flex items-center gap-2 bg-teal-700 text-white px-6 py-3 rounded-lg hover:bg-teal-800 transition-colors font-medium"
             >
               <Scale className="w-5 h-5" />
               Consulter le Code du Travail
@@ -350,7 +350,7 @@ export default function Home() {
             <div className="text-center mt-6">
               <Link 
                 href="/faq" 
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors font-medium"
+                className="inline-flex items-center gap-2 bg-teal-700 text-white px-6 py-3 rounded-lg hover:bg-teal-800 transition-colors font-medium"
               >
                 <HelpCircle className="w-5 h-5" />
                 Voir toutes les questions
