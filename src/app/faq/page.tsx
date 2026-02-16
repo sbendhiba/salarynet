@@ -74,7 +74,7 @@ export default function FAQ() {
   };
 
   // JSON-LD structured data for FAQ
-  const jsonLd = {
+  const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: faqData.map(item => ({
@@ -87,11 +87,34 @@ export default function FAQ() {
     }))
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://salairenet.ma'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'FAQ',
+        item: 'https://salairenet.ma/faq/'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
 

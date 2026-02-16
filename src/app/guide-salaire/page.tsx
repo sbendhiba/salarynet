@@ -76,7 +76,7 @@ export default function Guide() {
         '@type': 'ListItem',
         position: 2,
         name: 'Guide',
-        item: 'https://salairenet.ma/guide/'
+        item: 'https://salairenet.ma/guide-salaire/'
       }
     ]
   };
@@ -101,7 +101,7 @@ export default function Guide() {
     datePublished: '2025-01-01',
     dateModified: '2026-02-16',
     inLanguage: 'fr-MA',
-    mainEntityOfPage: 'https://salairenet.ma/guide/'
+    mainEntityOfPage: 'https://salairenet.ma/guide-salaire/'
   };
 
   return (
