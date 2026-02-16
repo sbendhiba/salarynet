@@ -9,8 +9,115 @@ export const metadata = {
 };
 
 export default function Guide() {
+  // HowTo structured data for Rich Results
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Comment calculer le salaire net au Maroc',
+    description: 'Guide complet pour calculer votre salaire net à partir du salaire brut selon la législation marocaine',
+    image: 'https://salairenet.ma/og-image.jpg',
+    totalTime: 'PT5M',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'MAD',
+      value: '0'
+    },
+    step: [
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer la cotisation CNSS',
+        text: 'Appliquez le taux de 4,29% sur le salaire brut plafonné à 6 000 MAD',
+        position: 1
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer la cotisation AMO',
+        text: 'Appliquez le taux de 2,26% sur le salaire brut sans plafond',
+        position: 2
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer l\'IPE (si applicable)',
+        text: 'Appliquez le taux de 1% si votre salaire brut dépasse 30 000 MAD par mois',
+        position: 3
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer le Salaire Brut Imposable',
+        text: 'Salaire Brut - CNSS - AMO - IPE = Salaire Brut Imposable',
+        position: 4
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer l\'Impôt sur le Revenu (IR)',
+        text: 'Appliquez le barème progressif de l\'IR sur le salaire brut imposable',
+        position: 5
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'Calculer le salaire net',
+        text: 'Salaire Brut Imposable - IR = Salaire Net',
+        position: 6
+      }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://salairenet.ma'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Guide',
+        item: 'https://salairenet.ma/guide-salaire/'
+      }
+    ]
+  };
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Guide de calcul du salaire net au Maroc',
+    description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain',
+    author: {
+      '@type': 'Organization',
+      name: 'Salaire Net Maroc'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Salaire Net Maroc',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://salairenet.ma/favicon.svg'
+      }
+    },
+    datePublished: '2025-01-01',
+    dateModified: '2026-02-16',
+    inLanguage: 'fr-MA',
+    mainEntityOfPage: 'https://salairenet.ma/guide-salaire/'
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Header />
 
       <main className="max-w-5xl mx-auto px-4 py-8">

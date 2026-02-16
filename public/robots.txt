@@ -11,7 +11,7 @@ Disallow: /out/
 
 # Allow all common pages
 Allow: /
-Allow: /guide
+Allow: /guide-salaire
 Allow: /a-propos
 Allow: /code-du-travail
 Allow: /faq

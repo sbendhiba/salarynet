@@ -17,7 +17,34 @@ export const metadata = {
 };
 
 export default function Home() {
-  const jsonLd = {
+  // Multiple structured data schemas for Rich Results
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Salaire Net Maroc',
+    url: 'https://salairenet.ma',
+    logo: 'https://salairenet.ma/favicon.svg',
+    description: 'Outils gratuits pour calculer votre salaire net au Maroc',
+    sameAs: [
+      'https://salairenet.ma'
+    ]
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Salaire Net Maroc',
+    url: 'https://salairenet.ma',
+    description: 'Calculateur gratuit de salaire net au Maroc',
+    inLanguage: 'fr-MA',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://salairenet.ma/?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
+  const webApplicationSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Calculateur Salaire Net Maroc',
@@ -25,11 +52,13 @@ export default function Home() {
     description: 'Calculateur gratuit pour convertir le salaire brut en net au Maroc selon les barèmes fiscaux 2025',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'MAD'
     },
+    featureList: 'Calcul IR, CNSS, AMO, IPE',
     provider: {
       '@type': 'Organization',
       name: 'Salaire Net Maroc',
@@ -44,11 +73,36 @@ export default function Home() {
     }
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://salairenet.ma'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
 

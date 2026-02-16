@@ -28,7 +28,7 @@ export default function Header() {
 
   const navigation: NavigationItem[] = [
     { name: 'Accueil', href: '/', icon: Home },
-    { name: 'Guide', href: '/guide', icon: BookOpen },
+    { name: 'Guide', href: '/guide-salaire', icon: BookOpen },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },
     { name: 'Code du Travail', href: '/code-du-travail', icon: Scale },
     { 

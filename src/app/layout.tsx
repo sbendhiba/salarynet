@@ -30,11 +30,20 @@ export const metadata: Metadata = {
     title: 'Calculateur Salaire Net Maroc 2025',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net selon les barèmes 2025.',
     siteName: 'Salaire Net Maroc',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Calculateur Salaire Net Maroc 2025',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Calculateur Salaire Net Maroc 2025',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net selon les barèmes 2025.',
+    images: ['/twitter-image.jpg'],
   },
   alternates: {
     canonical: 'https://salairenet.ma',
