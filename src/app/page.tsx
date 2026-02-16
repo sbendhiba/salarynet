@@ -7,7 +7,7 @@ import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users, Scale } fr
 
 export const metadata = {
   title: 'Calculateur Salaire Net Maroc 2025',
-  description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, AMO, IPE et IR selon les barèmes 2025.',
+  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2025',
   openGraph: {
     title: 'Calculateur Salaire Net Maroc 2025',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé.',
