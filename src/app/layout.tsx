@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: 'Calculateur Salaire Net Maroc 2025 – Simulateur Brut en Net',
     template: '%s | Salaire Net Maroc'
   },
-  description: 'Calculateur de salaire net au Maroc 2025. Simulateur gratuit pour convertir votre salaire brut en net avec les derniers barèmes fiscaux marocains (IR, CNSS, AMO).',
+  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2025',
   keywords: ['calcul salaire net maroc', 'simulateur salaire maroc', 'brut net maroc', 'ir maroc 2025', 'cnss maroc', 'amo maroc', 'calculateur salaire', 'impot sur le revenu maroc', 'salaire marocain', 'conversion brut net'],
   authors: [{ name: 'Salaire Net Maroc' }],
   creator: 'Salaire Net Maroc',
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -57,9 +63,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <head>
-        <link rel="canonical" href="https://salairenet.ma" />
-      </head>
       <body>{children}</body>
     </html>
   )
