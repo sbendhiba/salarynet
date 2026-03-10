@@ -3,7 +3,7 @@ import Footer from '../../components/Footer';
 import { Shield } from 'lucide-react';
 
 export const metadata = {
-  title: 'Politique de confidentialité - Calcul Salaire Net Maroc 2025',
+  title: 'Politique de confidentialité - Calcul Salaire Net Maroc 2026',
   description: 'Politique de confidentialité du calculateur de salaire net au Maroc. Aucune donnée personnelle n\'est stockée.',
 };
 
@@ -89,7 +89,7 @@ export default function PolitiqueConfidentialite() {
 
             <div className="bg-gray-50 p-4 rounded-lg mt-8">
               <p className="text-sm text-gray-600">
-                <strong>Dernière mise à jour :</strong> Janvier 2025
+                <strong>Dernière mise à jour :</strong> Janvier 2026
               </p>
             </div>
           </div>

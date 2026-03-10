@@ -36,7 +36,8 @@ export default function Header() {
       icon: LayoutGrid,
       hasSubmenu: true,
       submenu: [
-        { name: 'Calculateur Licenciement', href: 'https://indemnitelicenciement.ma/', external: true }
+        { name: 'Calculateur Licenciement', href: 'https://indemnitelicenciement.ma/', external: true },
+        { name: 'e-RH Pro', href: 'https://erh.ma/', external: true }
       ]
     },
     { name: 'À propos', href: '/a-propos', icon: Info },

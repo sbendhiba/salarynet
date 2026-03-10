@@ -3,8 +3,8 @@ import Footer from '../../components/Footer';
 import { Mail, Calculator, Shield, Users } from 'lucide-react';
 
 export const metadata = {
-  title: 'À propos - Calcul Salaire Net Maroc 2025',
-  description: 'À propos du calculateur de salaire net au Maroc 2025. Outil gratuit et fiable pour convertir votre salaire brut en net.',
+  title: 'À propos - Calcul Salaire Net Maroc 2026',
+  description: 'À propos du calculateur de salaire net au Maroc 2026. Outil gratuit et fiable pour convertir votre salaire brut en net.',
 };
 
 export default function APropos() {
@@ -30,7 +30,7 @@ export default function APropos() {
                 <h2 className="text-xl font-semibold text-gray-900">Notre mission</h2>
               </div>
               <p className="text-gray-700 leading-relaxed">
-                Le <strong>Calculateur de Salaire Net Maroc 2025</strong> est un outil gratuit et accessible 
+                Le <strong>Calculateur de Salaire Net Maroc 2026</strong> est un outil gratuit et accessible 
                 conçu pour aider les salariés marocains à comprendre et calculer facilement leur salaire net 
                 à partir de leur salaire brut. Notre objectif est de démocratiser l'accès à l\'information 
                 fiscale et sociale au Maroc 🇲🇦.
@@ -49,7 +49,7 @@ export default function APropos() {
                   <h3 className="font-semibold text-gray-900 mb-2">✅ Calculs précis</h3>
                   <p className="text-gray-700 text-sm">
                     Nos algorithmes intègrent les derniers barèmes fiscaux et taux de cotisations sociales 
-                    officiels du Maroc pour 2025.
+                    officiels du Maroc pour 2026.
                   </p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">

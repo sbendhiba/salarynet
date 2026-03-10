@@ -15,6 +15,7 @@ interface SalaryResult {
   netSalary: number;
   seniorityBonus?: number;
   dependentsDeduction?: number;
+  exemptBenefits?: number;
 }
 
 interface ChartData {
@@ -40,6 +41,7 @@ interface AdvancedOptions {
   socialFundRate: number;
   dependents: number;
   yearsOfService: number;
+  exemptBenefits: number;
 }
 
 export default function SalaryCalculator() {
@@ -49,7 +51,8 @@ export default function SalaryCalculator() {
   const [advancedOptions, setAdvancedOptions] = useState<AdvancedOptions>({
     socialFundRate: 0, // Default 0% for companies without additional social fund
     dependents: 0,
-    yearsOfService: 0
+    yearsOfService: 0,
+    exemptBenefits: 0
   });
 
   // Calculate seniority bonus based on years of service
@@ -70,7 +73,7 @@ export default function SalaryCalculator() {
     // Calculate RNI (Revenu Net Imposable) = gross - cotisations - frais professionnels
     const rni = grossSalary - cnssDeduction - amoDeduction - socialFundDeduction - ipeDeduction - fraisProfessionnels;
 
-    // Apply 2025 IR brackets to monthly RNI
+    // Apply 2026 IR brackets to monthly RNI
     if (rni <= 3333.33) return { irDeduction: 0, dependentsDeduction: 0 };
     
     let tax = 0;
@@ -89,8 +92,8 @@ export default function SalaryCalculator() {
     
     const baseTax = Math.max(0, tax);
     
-    // Calculate dependents deduction (500 MAD per year per dependent, so 500/12 per month)
-    const dependentsDeduction = dependents * (500 / 12);
+    // Calculate dependents deduction (Loi de Finances 2026: 600 MAD per year per dependent, max 3,600 MAD/year for up to 6 dependents)
+    const dependentsDeduction = Math.min(dependents, 6) * (600 / 12);
     
     // Apply dependents deduction to reduce IR
     const finalTax = Math.max(0, baseTax - dependentsDeduction);
@@ -137,8 +140,11 @@ export default function SalaryCalculator() {
       advancedOptions.dependents
     );
     
-    // Net salary = adjusted gross - all deductions
-    const netSalary = adjustedGross - cnssDeduction - amoDeduction - socialFundDeduction - ipeDeduction - irDeduction;
+    // Exempt benefits (indemnité transport, prime panier, etc.) are added to net salary but not taxed
+    const exemptBenefits = advancedOptions.exemptBenefits || 0;
+    
+    // Net salary = adjusted gross - all deductions + exempt benefits
+    const netSalary = adjustedGross - cnssDeduction - amoDeduction - socialFundDeduction - ipeDeduction - irDeduction + exemptBenefits;
 
     setResult({
       grossSalary: adjustedGross,
@@ -150,7 +156,8 @@ export default function SalaryCalculator() {
       irDeduction,
       netSalary,
       seniorityBonus: seniorityBonus > 0 ? seniorityBonus : undefined,
-      dependentsDeduction: dependentsDeduction > 0 ? dependentsDeduction : undefined
+      dependentsDeduction: dependentsDeduction > 0 ? dependentsDeduction : undefined,
+      exemptBenefits: exemptBenefits > 0 ? exemptBenefits : undefined
     });
   };
 
@@ -209,6 +216,15 @@ export default function SalaryCalculator() {
         name: 'Prime Ancienneté',
         value: result.seniorityBonus,
         color: '#8b5cf6'
+      });
+    }
+
+    // Add exempt benefits if present
+    if (result.exemptBenefits && result.exemptBenefits > 0) {
+      data.push({
+        name: 'Primes Exonérées',
+        value: result.exemptBenefits,
+        color: '#10b981'
       });
     }
 
@@ -509,7 +525,7 @@ export default function SalaryCalculator() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Déduction IR: 500 MAD/an par personne à charge ({formatCurrency(500/12)}/mois)
+                  Déduction IR 2026: 600 MAD/an par personne à charge ({formatCurrency(600/12)}/mois) - Max 3 600 MAD/an (6 personnes)
                 </p>
               </div>
 
@@ -532,6 +548,39 @@ export default function SalaryCalculator() {
                 <p className="text-xs text-gray-500 mt-1">
                   {getSeniorityDescription(advancedOptions.yearsOfService)}
                 </p>
+              </div>
+
+              {/* Exempt Benefits (Indemnités exonérées) */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Primes exonérées (MAD/mois)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  value={advancedOptions.exemptBenefits}
+                  onChange={(e) => setAdvancedOptions(prev => ({
+                    ...prev,
+                    exemptBenefits: parseFloat(e.target.value) || 0
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Indemnités exonérées de CNSS et IR (ex: transport, panier)
+                </p>
+              </div>
+
+              {/* Exempt Benefits Info */}
+              <div className="bg-green-50 border-l-4 border-green-400 p-3 rounded-r-lg">
+                <h4 className="text-xs font-semibold text-green-800 mb-2">Indemnités exonérées au Maroc</h4>
+                <div className="text-xs text-green-700 space-y-1">
+                  <p><strong>Indemnité de transport :</strong> Exonérée dans la limite de 500 MAD/mois</p>
+                  <p><strong>Prime de panier :</strong> Exonérée dans la limite de 30 MAD/jour travaillé</p>
+                  <p className="text-xs text-green-600 mt-2">
+                    Ces indemnités ne sont pas soumises à la CNSS, AMO, IPE ni à l'IR dans les limites réglementaires.
+                  </p>
+                </div>
               </div>
 
               {/* Seniority Scale Info */}
@@ -649,6 +698,13 @@ export default function SalaryCalculator() {
                       <span className="text-green-700 font-semibold">-{formatCurrency(result.dependentsDeduction)}</span>
                     </div>
                   )}
+                  
+                  {result.exemptBenefits && result.exemptBenefits > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                      <span className="text-green-600">Primes exonérées (transport, panier, etc.)</span>
+                      <span className="text-green-600 font-semibold">+{formatCurrency(result.exemptBenefits)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -707,6 +763,14 @@ export default function SalaryCalculator() {
                     </span>
                   </>
                 )}
+                {result.exemptBenefits && result.exemptBenefits > 0 && (
+                  <>
+                    <br />
+                    <span className="text-xs text-green-600">
+                      ✓ Primes exonérées ({formatCurrency(result.exemptBenefits)}) non soumises à l'IR
+                    </span>
+                  </>
+                )}
               </p>
             </div>
           </section>
@@ -717,7 +781,7 @@ export default function SalaryCalculator() {
               <div className="bg-purple-100 p-2 rounded-lg">
                 <TrendingUp className="w-5 h-5 text-purple-600" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">Statistiques salariales NET - Secteur privé Maroc 2025</h2>
+              <h2 className="text-xl font-bold text-gray-900">Statistiques salariales NET - Secteur privé Maroc 2026</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -734,7 +798,7 @@ export default function SalaryCalculator() {
               </div>
               
               <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
-                <h3 className="font-semibold text-orange-800 mb-2">SMIG 2025 NET</h3>
+                <h3 className="font-semibold text-orange-800 mb-2">SMIG 2026 NET</h3>
                 <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
                 <p className="text-sm text-orange-700">net/mois</p>
               </div>
@@ -946,7 +1010,7 @@ export default function SalaryCalculator() {
 
             <div className="mt-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
               <p className="text-amber-800 text-sm">
-                <strong>Sources :</strong> Données basées sur les enquêtes HCP (Haut-Commissariat au Plan) 2024-2025, 
+                <strong>Sources :</strong> Données basées sur les enquêtes HCP (Haut-Commissariat au Plan) 2024-2026, 
                 études sectorielles et rapports du marché de l'emploi au Maroc. Les statistiques concernent 
                 principalement le secteur privé formel. La distribution est centrée sur la médiane de 
                 <strong> 4 500 MAD NET</strong> (pic de la courbe) avec une moyenne de <strong>5 800 MAD NET</strong>.
