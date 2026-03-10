@@ -19,12 +19,12 @@ const faqData: FAQItem[] = [
   },
   {
     question: "Le calcul est-il exact pour tous les cas ?",
-    answer: "Ce simulateur fournit une estimation basée sur les taux standards et les barèmes fiscaux 2025. Les calculs réels peuvent varier selon votre situation spécifique (nombre d'enfants à charge, déductions particulières, conventions collectives, etc.). Nous recommandons de consulter votre service RH pour un calcul précis et personnalisé.",
+    answer: "Ce simulateur fournit une estimation basée sur les taux standards et les barèmes fiscaux 2026. Les calculs réels peuvent varier selon votre situation spécifique (nombre d'enfants à charge, déductions particulières, conventions collectives, etc.). Nous recommandons de consulter votre service RH pour un calcul précis et personnalisé.",
     isOpen: false
   },
   {
-    question: "Quelles sont les dernières mises à jour fiscales 2025 ?",
-    answer: "Le simulateur intègre les derniers barèmes de l'impôt sur le revenu 2025 avec les nouvelles tranches : 0% jusqu'à 33 333 MAD/an, 10% de 33 334 à 50 000 MAD/an, 20% de 50 001 à 66 667 MAD/an, 30% de 66 668 à 83 333 MAD/an, 34% de 83 334 à 150 000 MAD/an, et 37% au-delà de 150 000 MAD/an.",
+    question: "Quelles sont les dernières mises à jour fiscales 2026 ?",
+    answer: "Le simulateur intègre les derniers barèmes de l'impôt sur le revenu 2026 avec les nouvelles tranches : 0% jusqu'à 33 333 MAD/an, 10% de 33 334 à 50 000 MAD/an, 20% de 50 001 à 66 667 MAD/an, 30% de 66 668 à 83 333 MAD/an, 34% de 83 334 à 150 000 MAD/an, et 37% au-delà de 150 000 MAD/an. La Loi de Finances 2026 a également augmenté la réduction pour charges de famille à 600 DH par an et par personne à charge (max 3 600 DH pour 6 personnes).",
     isOpen: false
   },
   {
@@ -53,8 +53,8 @@ const faqData: FAQItem[] = [
       isOpen: false
     },
     {
-      question: "Le simulateur est-il à jour avec la législation 2025 ?",
-      answer: "Oui, le simulateur intègre les derniers barèmes fiscaux et taux de cotisations sociales en vigueur au Maroc pour 2025. Nous mettons régulièrement à jour les calculs selon les évolutions de la législation marocaine.",
+      question: "Le simulateur est-il à jour avec la législation 2026 ?",
+      answer: "Oui, le simulateur intègre les derniers barèmes fiscaux et taux de cotisations sociales en vigueur au Maroc pour 2026. Nous mettons régulièrement à jour les calculs selon les évolutions de la législation marocaine.",
       isOpen: false
     },
     {

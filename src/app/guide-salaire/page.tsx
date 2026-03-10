@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { BookOpen, Calculator, TrendingDown, Percent, FileText, AlertCircle } from 'lucide-react';
 
 export const metadata = {
-  title: 'Guide de calcul du salaire net - Calcul Salaire Net Maroc 2025',
+  title: 'Guide de calcul du salaire net - Calcul Salaire Net Maroc 2026',
   description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain. Méthodes de calcul des cotisations sociales et de l\'IR.',
 };
 
@@ -98,7 +98,7 @@ export default function Guide() {
         url: 'https://salairenet.ma/favicon.svg'
       }
     },
-    datePublished: '2025-01-01',
+    datePublished: '2026-01-01',
     dateModified: '2026-02-16',
     inLanguage: 'fr-MA',
     mainEntityOfPage: 'https://salairenet.ma/guide-salaire/'
@@ -316,7 +316,7 @@ export default function Guide() {
                   <div className="bg-red-50 p-4 rounded-lg mb-4">
                     <p className="font-semibold text-red-900 mb-2">Étape 1 : Calculer le RNI</p>
                     <code className="text-red-800 text-sm block mb-2">RNI = Salaire brut - CNSS - AMO - IPE - Frais professionnels</code>
-                    <p className="font-semibold text-red-900 mt-4 mb-2">Étape 2 : Appliquer le barème progressif 2025</p>
+                    <p className="font-semibold text-red-900 mt-4 mb-2">Étape 2 : Appliquer le barème progressif 2026</p>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm border-collapse">
@@ -433,7 +433,7 @@ export default function Guide() {
                   <div>
                     <h3 className="font-semibold text-blue-900 mb-2">Base légale</h3>
                     <p className="text-blue-800 text-sm leading-relaxed">
-                      Les calculs sont basés sur le Code du Travail marocain et la législation fiscale en vigueur pour 2025. 
+                      Les calculs sont basés sur le Code du Travail marocain et la législation fiscale en vigueur pour 2026. 
                       Les taux et plafonds peuvent varier selon les conventions collectives sectorielles.
                     </p>
                   </div>

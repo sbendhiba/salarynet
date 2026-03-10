@@ -3,8 +3,8 @@ import Footer from '../../components/Footer';
 import { FileText } from 'lucide-react';
 
 export const metadata = {
-  title: 'Mentions légales - Calcul Salaire Net Maroc 2025',
-  description: 'Mentions légales du calculateur de salaire net au Maroc 2025.',
+  title: 'Mentions légales - Calcul Salaire Net Maroc 2026',
+  description: 'Mentions légales du calculateur de salaire net au Maroc 2026.',
 };
 
 export default function MentionsLegales() {
@@ -26,7 +26,7 @@ export default function MentionsLegales() {
               <h2 className="text-xl font-semibold text-gray-900 mb-3">1. Informations générales</h2>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-gray-700 leading-relaxed">
-                  <strong>Nom du site :</strong> Calcul Salaire Net Maroc 2025<br />
+                  <strong>Nom du site :</strong> Calcul Salaire Net Maroc 2026<br />
                   <strong>Nature :</strong> Simulateur de calcul de salaire net<br />
                   <strong>Langue :</strong> Français<br />
                   <strong>Pays :</strong> Maroc 🇲🇦
@@ -38,7 +38,7 @@ export default function MentionsLegales() {
               <h2 className="text-xl font-semibold text-gray-900 mb-3">2. Objet du site</h2>
               <p className="text-gray-700 leading-relaxed">
                 Ce site web propose un simulateur gratuit permettant de calculer le salaire net à partir 
-                du salaire brut selon la législation fiscale et sociale marocaine en vigueur en 2025. 
+                du salaire brut selon la législation fiscale et sociale marocaine en vigueur en 2026. 
                 L'outil prend en compte les cotisations CNSS, AMO et l'impôt sur le revenu (IR).
               </p>
             </section>
@@ -105,7 +105,7 @@ export default function MentionsLegales() {
 
             <div className="bg-gray-50 p-4 rounded-lg mt-8">
               <p className="text-sm text-gray-600">
-                <strong>Dernière mise à jour :</strong> Janvier 2025
+                <strong>Dernière mise à jour :</strong> Janvier 2026
               </p>
             </div>
           </div>

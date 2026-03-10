@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users, Scale } from 'lucide-react';
 
 export const metadata = {
-  title: 'Calculateur Salaire Net Maroc 2025',
-  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2025',
+  title: 'Calculateur Salaire Net Maroc 2026',
+  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2026',
   openGraph: {
-    title: 'Calculateur Salaire Net Maroc 2025',
+    title: 'Calculateur Salaire Net Maroc 2026',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé.',
     url: 'https://salairenet.ma',
     type: 'website',
@@ -49,7 +49,7 @@ export default function Home() {
     '@type': 'WebApplication',
     name: 'Calculateur Salaire Net Maroc',
     url: 'https://salairenet.ma',
-    description: 'Calculateur gratuit pour convertir le salaire brut en net au Maroc selon les barèmes fiscaux 2025',
+    description: 'Calculateur gratuit pour convertir le salaire brut en net au Maroc selon les barèmes fiscaux 2026',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'All',
     browserRequirements: 'Requires JavaScript',
@@ -113,14 +113,14 @@ export default function Home() {
             Calculateur de Salaire Net
           </h2>
           <p className="text-gray-700 text-lg md:text-xl max-w-3xl mx-auto">
-            Calculez précisément votre salaire net selon le droit du travail marocain
+            Calculez précisément votre salaire net à partir du brut selon le droit du travail marocain
           </p>
         </section>
 
         <SalaryCalculator />
 
         <SocialShare
-          title="Calculateur Salaire Net Maroc 2025"
+          title="Calculateur Salaire Net Maroc 2026"
           description="Calculez votre salaire net au Maroc avec notre simulateur gratuit."
         />
 
@@ -182,7 +182,7 @@ export default function Home() {
         <section className="bg-white rounded-xl shadow-lg p-8 md:p-10">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-              Statistiques salariales Maroc 2025
+              Statistiques salariales Maroc 2026
             </h2>
           </div>
 
@@ -208,7 +208,7 @@ export default function Home() {
             <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Users className="w-5 h-5 text-orange-700" />
-                <h3 className="font-semibold text-orange-800">SMIG 2025 NET</h3>
+                <h3 className="font-semibold text-orange-800">SMIG 2026 NET</h3>
               </div>
               <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
               <p className="text-sm text-orange-700">net/mois</p>
@@ -274,11 +274,11 @@ export default function Home() {
               <h4 className="font-semibold text-gray-800 mb-3">Données clés du marché</h4>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">SMIG brut 2025</span>
+                  <span className="text-gray-600">SMIG brut 2026</span>
                   <span className="font-medium">3 500 MAD</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">SMIG net 2025</span>
+                  <span className="text-gray-600">SMIG net 2026</span>
                   <span className="font-medium text-teal-700">3 200 MAD</span>
                 </div>
                 <div className="flex justify-between">
@@ -293,7 +293,7 @@ export default function Home() {
               
               <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                 <p className="text-xs text-blue-800">
-                  <strong>Source :</strong> HCP (Haut-Commissariat au Plan) 2024-2025, 
+                  <strong>Source :</strong> HCP (Haut-Commissariat au Plan) 2024-2026, 
                   enquêtes emploi secteur privé formel au Maroc.
                 </p>
               </div>
@@ -329,11 +329,11 @@ export default function Home() {
               assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d\'Emploi)</strong> de 0,19% 
               (également plafonné à 6 000 MAD/mois). Les <strong>frais professionnels</strong> représentent 25% 
               du salaire brut (plafonnés à 2 916,66 MAD/mois). Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> 
-              est calculé selon un barème progressif 2025 appliqué au revenu net imposable mensuel.
+              est calculé selon un barème progressif 2026 appliqué au revenu net imposable mensuel.
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
-              <h3 className="font-semibold text-blue-800 mb-2">Barème IR 2025 (mensuel) :</h3>
+              <h3 className="font-semibold text-blue-800 mb-2">Barème IR 2026 (mensuel) :</h3>
               <ul className="text-blue-700 text-sm space-y-1">
                 <li>• 0% : jusqu'à 3 333,33 MAD/mois</li>
                 <li>• 10% : de 3 333,34 à 5 000 MAD/mois</li>
@@ -396,7 +396,7 @@ export default function Home() {
             <div className="border border-gray-200 rounded-lg p-4">
               <h3 className="font-medium text-gray-900 mb-2">Comment est calculé l'impôt sur le revenu (IR) ?</h3>
               <p className="text-gray-700 text-sm">
-                L'IR est calculé selon un barème progressif 2025 appliqué sur le revenu net imposable (RNI). Le RNI = salaire brut - CNSS - AMO - IPE - frais professionnels. Les taux varient de 0% à 37% selon la tranche.
+                L'IR est calculé selon un barème progressif 2026 appliqué sur le revenu net imposable (RNI). Le RNI = salaire brut - CNSS - AMO - IPE - frais professionnels. Les taux varient de 0% à 37% selon la tranche.
               </p>
             </div>
 
