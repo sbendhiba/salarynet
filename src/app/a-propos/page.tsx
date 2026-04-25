@@ -5,6 +5,9 @@ import { Mail, Calculator, Shield, Users } from 'lucide-react';
 export const metadata = {
   title: 'À propos - Calcul Salaire Net Maroc 2026',
   description: 'À propos du calculateur de salaire net au Maroc 2026. Outil gratuit et fiable pour convertir votre salaire brut en net.',
+  alternates: {
+    canonical: 'https://salairenet.ma/a-propos/',
+  },
 };
 
 export default function APropos() {

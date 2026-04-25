@@ -54,10 +54,8 @@ export const metadata: Metadata = {
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net selon les barèmes 2026.',
     images: ['/twitter-image.jpg'],
   },
-  alternates: {
-    canonical: 'https://salairenet.ma',
-  },
 }
+
 
 export default function RootLayout({
   children,

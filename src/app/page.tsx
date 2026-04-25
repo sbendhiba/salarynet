@@ -8,6 +8,9 @@ import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users, Scale } fr
 export const metadata = {
   title: 'Calculateur Salaire Net Maroc 2026',
   description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2026',
+  alternates: {
+    canonical: 'https://salairenet.ma',
+  },
   openGraph: {
     title: 'Calculateur Salaire Net Maroc 2026',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé.',
@@ -26,7 +29,8 @@ export default function Home() {
     logo: 'https://salairenet.ma/favicon.svg',
     description: 'Outils gratuits pour calculer votre salaire net au Maroc',
     sameAs: [
-      'https://salairenet.ma'
+      'https://www.linkedin.com/company/erh-pro/',
+      'https://erh.ma/'
     ]
   };
 
