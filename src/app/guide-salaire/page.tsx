@@ -6,6 +6,9 @@ import { BookOpen, Calculator, TrendingDown, Percent, FileText, AlertCircle } fr
 export const metadata = {
   title: 'Guide de calcul du salaire net - Calcul Salaire Net Maroc 2026',
   description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain. Méthodes de calcul des cotisations sociales et de l\'IR.',
+  alternates: {
+    canonical: 'https://salairenet.ma/guide-salaire/',
+  },
 };
 
 export default function Guide() {
@@ -87,8 +90,10 @@ export default function Guide() {
     headline: 'Guide de calcul du salaire net au Maroc',
     description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain',
     author: {
-      '@type': 'Organization',
-      name: 'Salaire Net Maroc'
+      '@type': 'Person',
+      name: 'Expert ERH Pro',
+      url: 'https://www.linkedin.com/company/erh-pro/',
+      sameAs: 'https://www.linkedin.com/company/erh-pro/'
     },
     publisher: {
       '@type': 'Organization',
@@ -135,6 +140,33 @@ export default function Guide() {
           </div>
 
           <div className="prose prose-gray max-w-none">
+            {/* Author box */}
+            <div className="flex items-start gap-4 bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8 not-prose">
+              <div className="flex-shrink-0 w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                E
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">Rédigé par</p>
+                <a
+                  href="https://www.linkedin.com/company/erh-pro/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-teal-700 font-semibold hover:underline text-base"
+                >
+                  Expert ERH Pro
+                </a>
+                <p className="text-gray-500 text-sm mt-0.5">Expert en droit du travail &amp; ressources humaines, Maroc</p>
+                <p className="text-gray-600 text-sm mt-2 leading-relaxed">
+                  Spécialiste du droit du travail marocain avec plus de 10 ans d&apos;expérience en gestion des ressources humaines
+                  et en conseil juridique pour les entreprises marocaines. Contenu conforme au Code du Travail (Dahir n° 1-03-194).
+                </p>
+                <span className="inline-flex items-center gap-1 mt-2 text-xs text-teal-700 font-medium">
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  Contenu vérifié par des experts
+                </span>
+              </div>
+            </div>
+
             <p className="text-gray-700 leading-relaxed mb-8">
               Ce guide vous explique en détail comment est calculé votre salaire net à partir de votre salaire brut. 
               Pour des exemples pratiques, consultez la <Link href="/faq" className="text-teal-600 hover:text-teal-700 underline">FAQ</Link> ou 
@@ -421,6 +453,214 @@ export default function Guide() {
                   </div>
                 </div>
               </section>
+            </div>
+
+            {/* Exemples Pratiques */}
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Exemples pratiques complets</h2>
+              <p className="text-center text-gray-600 mb-8">Calcul détaillé pour trois profils salariaux représentatifs au Maroc</p>
+
+              <div className="space-y-6">
+
+                {/* Exemple 1 : SMIG */}
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                  <div className="bg-blue-600 px-6 py-4">
+                    <h3 className="text-white font-bold text-lg">Exemple 1 – Salarié au SMIG (3 111 MAD brut)</h3>
+                    <p className="text-blue-100 text-sm">Profil : employé secteur privé, sans personnes à charge</p>
+                  </div>
+                  <div className="p-6">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="text-left p-3 font-semibold text-gray-700 border-b">Élément</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Calcul</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Montant</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          <tr>
+                            <td className="p-3 text-gray-700 font-medium">Salaire brut</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">3 111,00 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– CNSS (4,29%)</td>
+                            <td className="p-3 text-right text-gray-500">3 111 × 4,29%</td>
+                            <td className="p-3 text-right">– 133,46 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– AMO (2,26%)</td>
+                            <td className="p-3 text-right text-gray-500">3 111 × 2,26%</td>
+                            <td className="p-3 text-right">– 70,31 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IPE (0,19%)</td>
+                            <td className="p-3 text-right text-gray-500">3 111 × 0,19%</td>
+                            <td className="p-3 text-right">– 5,91 MAD</td>
+                          </tr>
+                          <tr className="text-gray-500">
+                            <td className="p-3">– Frais professionnels (20%)</td>
+                            <td className="p-3 text-right text-gray-500">3 111 × 20%</td>
+                            <td className="p-3 text-right">– 622,20 MAD</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-3 font-medium text-gray-700">= RNI (Revenu Net Imposable)</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">2 279,12 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IR</td>
+                            <td className="p-3 text-right text-gray-500">RNI &lt; 3 333 MAD → 0%</td>
+                            <td className="p-3 text-right">0,00 MAD</td>
+                          </tr>
+                          <tr className="bg-teal-50 font-bold text-teal-700">
+                            <td className="p-3">= Salaire net</td>
+                            <td className="p-3 text-right">—</td>
+                            <td className="p-3 text-right text-lg">2 901,32 MAD</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">💡 Le RNI est inférieur à 3 333 MAD, donc l'IR est nul. Le salarié au SMIG ne paie pas d'impôt sur le revenu.</p>
+                  </div>
+                </div>
+
+                {/* Exemple 2 : Cadre moyen */}
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                  <div className="bg-teal-600 px-6 py-4">
+                    <h3 className="text-white font-bold text-lg">Exemple 2 – Cadre moyen (12 000 MAD brut)</h3>
+                    <p className="text-teal-100 text-sm">Profil : technicien ou cadre junior, secteur privé</p>
+                  </div>
+                  <div className="p-6">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="text-left p-3 font-semibold text-gray-700 border-b">Élément</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Calcul</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Montant</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          <tr>
+                            <td className="p-3 text-gray-700 font-medium">Salaire brut</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">12 000,00 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– CNSS (4,29%, plaf. 6 000)</td>
+                            <td className="p-3 text-right text-gray-500">6 000 × 4,29%</td>
+                            <td className="p-3 text-right">– 257,40 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– AMO (2,26%)</td>
+                            <td className="p-3 text-right text-gray-500">12 000 × 2,26%</td>
+                            <td className="p-3 text-right">– 271,20 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IPE (0,19%, plaf. 6 000)</td>
+                            <td className="p-3 text-right text-gray-500">6 000 × 0,19%</td>
+                            <td className="p-3 text-right">– 11,40 MAD</td>
+                          </tr>
+                          <tr className="text-gray-500">
+                            <td className="p-3">– Frais professionnels (20%, plaf. 2 500)</td>
+                            <td className="p-3 text-right text-gray-500">min(12 000 × 20%, 2 500)</td>
+                            <td className="p-3 text-right">– 2 400,00 MAD</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-3 font-medium text-gray-700">= RNI</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">9 060,00 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IR (tranche 34%)</td>
+                            <td className="p-3 text-right text-gray-500">9 060 × 34% – 1 833,33</td>
+                            <td className="p-3 text-right">– 1 247,07 MAD</td>
+                          </tr>
+                          <tr className="bg-teal-50 font-bold text-teal-700">
+                            <td className="p-3">= Salaire net</td>
+                            <td className="p-3 text-right">—</td>
+                            <td className="p-3 text-right text-lg">10 212,93 MAD</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">💡 Taux effectif d'imposition global : ~15,7% du brut. Le net représente environ 85,1% du salaire brut.</p>
+                  </div>
+                </div>
+
+                {/* Exemple 3 : Cadre supérieur */}
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                  <div className="bg-purple-600 px-6 py-4">
+                    <h3 className="text-white font-bold text-lg">Exemple 3 – Cadre supérieur (25 000 MAD brut)</h3>
+                    <p className="text-purple-100 text-sm">Profil : manager ou ingénieur senior, secteur privé</p>
+                  </div>
+                  <div className="p-6">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="text-left p-3 font-semibold text-gray-700 border-b">Élément</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Calcul</th>
+                            <th className="text-right p-3 font-semibold text-gray-700 border-b">Montant</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          <tr>
+                            <td className="p-3 text-gray-700 font-medium">Salaire brut</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">25 000,00 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– CNSS (4,29%, plaf. 6 000)</td>
+                            <td className="p-3 text-right text-gray-500">6 000 × 4,29%</td>
+                            <td className="p-3 text-right">– 257,40 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– AMO (2,26%)</td>
+                            <td className="p-3 text-right text-gray-500">25 000 × 2,26%</td>
+                            <td className="p-3 text-right">– 565,00 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IPE (0,19%, plaf. 6 000)</td>
+                            <td className="p-3 text-right text-gray-500">6 000 × 0,19%</td>
+                            <td className="p-3 text-right">– 11,40 MAD</td>
+                          </tr>
+                          <tr className="text-gray-500">
+                            <td className="p-3">– Frais professionnels (20%, plaf. 2 500)</td>
+                            <td className="p-3 text-right text-gray-500">plafonné à 2 500</td>
+                            <td className="p-3 text-right">– 2 500,00 MAD</td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-3 font-medium text-gray-700">= RNI</td>
+                            <td className="p-3 text-right text-gray-500">—</td>
+                            <td className="p-3 text-right font-semibold">21 666,20 MAD</td>
+                          </tr>
+                          <tr className="text-red-600">
+                            <td className="p-3">– IR (tranche 37%)</td>
+                            <td className="p-3 text-right text-gray-500">21 666,20 × 37% – 2 283,33</td>
+                            <td className="p-3 text-right">– 5 733,16 MAD</td>
+                          </tr>
+                          <tr className="bg-teal-50 font-bold text-teal-700">
+                            <td className="p-3">= Salaire net</td>
+                            <td className="p-3 text-right">—</td>
+                            <td className="p-3 text-right text-lg">18 433,04 MAD</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="mt-3 text-xs text-gray-500">💡 Taux effectif d'imposition global : ~26,3% du brut. Le net représente environ 73,7% du salaire brut.</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
+                <strong>Note :</strong> Ces exemples utilisent les barèmes standards 2026, sans déduction pour personnes à charge.
+                Si vous avez des enfants ou conjoint à charge, votre IR sera réduit de <strong>360 MAD par an et par personne</strong> (max 6 personnes).
+                Utilisez notre <Link href="/" className="text-teal-700 underline hover:text-teal-800">calculateur interactif</Link> pour intégrer votre situation personnelle.
+              </div>
             </div>
 
             {/* Informations importantes */}

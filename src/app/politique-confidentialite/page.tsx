@@ -5,6 +5,9 @@ import { Shield } from 'lucide-react';
 export const metadata = {
   title: 'Politique de confidentialité - Calcul Salaire Net Maroc 2026',
   description: 'Politique de confidentialité du calculateur de salaire net au Maroc. Aucune donnée personnelle n\'est stockée.',
+  alternates: {
+    canonical: 'https://salairenet.ma/politique-confidentialite/',
+  },
 };
 
 export default function PolitiqueConfidentialite() {

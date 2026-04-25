@@ -5,6 +5,9 @@ import { FileText } from 'lucide-react';
 export const metadata = {
   title: 'Mentions légales - Calcul Salaire Net Maroc 2026',
   description: 'Mentions légales du calculateur de salaire net au Maroc 2026.',
+  alternates: {
+    canonical: 'https://salairenet.ma/mentions-legales/',
+  },
 };
 
 export default function MentionsLegales() {

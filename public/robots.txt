@@ -1,19 +1,32 @@
 User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://salairenet.ma/sitemap.xml
-
-# Disallow crawling of any potential admin or internal pages
 Disallow: /api/
 Disallow: /_next/
 Disallow: /out/
 
-# Allow all common pages
+# Google AI (AI Overviews / Gemini training)
+User-agent: Google-Extended
 Allow: /
-Allow: /guide-salaire
-Allow: /a-propos
-Allow: /code-du-travail
-Allow: /faq
-Allow: /mentions-legales
-Allow: /politique-confidentialite
+
+# OpenAI GPT crawler
+User-agent: GPTBot
+Allow: /
+
+# Anthropic Claude crawler
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity AI crawler
+User-agent: PerplexityBot
+Allow: /
+
+# Common Crawl (used by many LLMs for training)
+User-agent: CCBot
+Allow: /
+
+# Meta AI crawler
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Sitemap
+Sitemap: https://salairenet.ma/sitemap.xml
