@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
     "export": "next export"
   },
   "dependencies": {
