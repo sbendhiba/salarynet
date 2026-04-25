@@ -30,7 +30,8 @@ export default function Home() {
     description: 'Outils gratuits pour calculer votre salaire net au Maroc',
     sameAs: [
       'https://www.linkedin.com/company/erh-pro/',
-      'https://erh.ma/'
+      'https://erh.ma/',
+      'https://indemnitelicenciement.ma/',
     ]
   };
 

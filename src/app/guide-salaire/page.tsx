@@ -2,6 +2,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { BookOpen, Calculator, TrendingDown, Percent, FileText, AlertCircle } from 'lucide-react';
+import { primaryAuthor } from '../../data/authors';
 
 export const metadata = {
   title: 'Guide de calcul du salaire net - Calcul Salaire Net Maroc 2026',
@@ -91,9 +92,9 @@ export default function Guide() {
     description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain',
     author: {
       '@type': 'Person',
-      name: 'Expert ERH Pro',
-      url: 'https://www.linkedin.com/company/erh-pro/',
-      sameAs: 'https://www.linkedin.com/company/erh-pro/'
+      name: primaryAuthor.name,
+      url: primaryAuthor.linkedinUrl,
+      jobTitle: primaryAuthor.credentials.fr,
     },
     publisher: {
       '@type': 'Organization',

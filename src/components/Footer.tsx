@@ -52,6 +52,8 @@ export default function Footer() {
           </p>
           <p className="text-gray-400 text-xs mt-3">
             Voir aussi : <a href="https://indemnitelicenciement.ma/" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">Calculateur d'Indemnités de Licenciement</a>
+            <span className="mx-2">•</span>
+            <a href="https://erh.ma/" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">e-RH Pro</a>
           </p>
         </div>
       </div>
