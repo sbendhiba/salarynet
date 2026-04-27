@@ -170,8 +170,8 @@ export default function Guide() {
 
             <p className="text-gray-700 leading-relaxed mb-8">
               Ce guide vous explique en détail comment est calculé votre salaire net à partir de votre salaire brut. 
-              Pour des exemples pratiques, consultez la <Link href="/faq" className="text-teal-600 hover:text-teal-700 underline">FAQ</Link> ou 
-              lisez les <Link href="/code-du-travail" className="text-teal-600 hover:text-teal-700 underline">articles de loi</Link> applicables.
+              Pour des exemples pratiques, consultez la <Link href="/faq" prefetch={false} className="text-teal-600 hover:text-teal-700 underline">FAQ</Link> ou 
+              lisez les <Link href="/code-du-travail" prefetch={false} className="text-teal-600 hover:text-teal-700 underline">articles de loi</Link> applicables.
             </p>
 
             {/* Guide Sections */}
@@ -660,7 +660,7 @@ export default function Guide() {
               <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
                 <strong>Note :</strong> Ces exemples utilisent les barèmes standards 2026, sans déduction pour personnes à charge.
                 Si vous avez des enfants ou conjoint à charge, votre IR sera réduit de <strong>360 MAD par an et par personne</strong> (max 6 personnes).
-                Utilisez notre <Link href="/" className="text-teal-700 underline hover:text-teal-800">calculateur interactif</Link> pour intégrer votre situation personnelle.
+                Utilisez notre <Link href="/" prefetch={false} className="text-teal-700 underline hover:text-teal-800">calculateur interactif</Link> pour intégrer votre situation personnelle.
               </div>
             </div>
 
