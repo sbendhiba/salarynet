@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://salairenet.ma'),
@@ -66,18 +65,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-371NB0C9WY"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-371NB0C9WY');
-          `}
-        </Script>
         {children}
       </body>
     </html>
