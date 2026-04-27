@@ -47,7 +47,7 @@ export default function Header() {
     <header className="bg-white shadow-lg border-b border-gray-200">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <Link href="/" prefetch={false} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600">
               <rect width="16" height="20" x="4" y="2" rx="2"></rect>
               <line x1="8" x2="16" y1="6" y2="6"></line>
@@ -108,6 +108,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href || '/'}
+                  prefetch={false}
                   className="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 >
                   {item.icon && <item.icon className="w-4 h-4" />}
@@ -183,6 +184,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href || '/'}
+                    prefetch={false}
                     className="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
                     onClick={() => setIsMenuOpen(false)}
                   >
