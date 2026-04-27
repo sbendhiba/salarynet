@@ -8,6 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           <Link 
             href="/politique-confidentialite" 
+            prefetch={false}
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <Shield className="w-4 h-4" />
@@ -15,6 +16,7 @@ export default function Footer() {
           </Link>
           <Link 
             href="/mentions-legales" 
+            prefetch={false}
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <FileText className="w-4 h-4" />
@@ -22,6 +24,7 @@ export default function Footer() {
           </Link>
           <Link 
             href="/faq" 
+            prefetch={false}
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <HelpCircle className="w-4 h-4" />
@@ -29,6 +32,7 @@ export default function Footer() {
           </Link>
           <Link 
             href="/code-du-travail" 
+            prefetch={false}
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <Scale className="w-4 h-4" />
@@ -36,6 +40,7 @@ export default function Footer() {
           </Link>
           <Link 
             href="/a-propos" 
+            prefetch={false}
             className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2"
           >
             <Mail className="w-4 h-4" />

@@ -1,0 +1,28 @@
+# Salaire Net Maroc - Calculateur de Salaire Brut en Net
+
+> Calculateur gratuit du salaire net au Maroc, conforme au Code du Travail et aux barèmes fiscaux 2026. Développé par e-RH Pro.
+
+## Calculateur
+
+- Calculateur salaire brut en net – CNSS, AMO, IPE et IR selon les barèmes 2026: https://salairenet.ma/
+
+## Guide
+
+- Guide de calcul du salaire net – Méthode complète avec exemples: https://salairenet.ma/guide-salaire/
+
+## FAQ
+
+- Questions fréquentes sur le calcul du salaire au Maroc: https://salairenet.ma/faq/
+
+## Code du Travail
+
+- Résumé des articles du Code du Travail marocain relatifs à la rémunération: https://salairenet.ma/code-du-travail/
+
+## À propos
+
+- Présentation de l'outil et de l'équipe: https://salairenet.ma/a-propos/
+
+## Réseau e-RH Pro
+
+- Calculateur d'indemnité de licenciement: https://indemnitelicenciement.ma/
+- Plateforme RH e-RH Pro (guides, blog, outils): https://erh.ma/
