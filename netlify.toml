@@ -10,8 +10,10 @@
     X-Frame-Options = "DENY"
     # Prevent MIME-type sniffing
     X-Content-Type-Options = "nosniff"
-    # Enforce HTTPS for 1 year, include subdomains
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Disable Adobe Flash / Acrobat cross-domain policy files
+    X-Permitted-Cross-Domain-Policies = "none"
+    # Enforce HTTPS for 2 years, include subdomains
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     # Limit referrer info to same origin
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Disable browser features not needed by this app
@@ -19,7 +21,7 @@
     # Content Security Policy
     # - unsafe-inline required: Next.js static export injects inline hydration scripts
     # - script-src 'unsafe-inline' can be tightened with a nonce once SSR is added
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://static.cloudflareinsights.com https://resources.infolinks.com https://router.infolinks.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://www.google.com https://cloudflareinsights.com; frame-src https://router.infolinks.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://www.google.com https://cloudflareinsights.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
 
 # ─── Static asset headers ─────────────────────────────────────────────────────
 [[headers]]
