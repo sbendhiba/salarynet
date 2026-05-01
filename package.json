@@ -6,10 +6,12 @@
     "dev": "next dev",
     "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build",
+    "postbuild": "node scripts/indexnow-submit.js",
     "start": "next start",
     "lint": "next lint",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "export": "next export"
+    "export": "next export",
+    "indexnow": "node scripts/indexnow-submit.js"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
