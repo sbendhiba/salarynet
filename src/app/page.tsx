@@ -114,9 +114,9 @@ export default function Home() {
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-12">
         {/* Hero Section */}
         <section className="text-center py-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Calculateur de Salaire Net 2026
-          </h2>
+          </h1>
           <p className="text-gray-700 text-lg md:text-xl max-w-3xl mx-auto">
             Calculez précisément votre salaire net à partir du brut selon le droit du travail marocain
           </p>
