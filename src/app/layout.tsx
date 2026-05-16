@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: 'Calculateur Salaire Net Maroc 2026 – Simulateur Brut en Net',
     template: '%s | Salaire Net Maroc'
   },
-  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2026',
+  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code du travail 2026',
   keywords: ['calcul salaire net maroc', 'simulateur salaire maroc', 'brut net maroc', 'ir maroc 2026', 'cnss maroc', 'amo maroc', 'calculateur salaire', 'impot sur le revenu maroc', 'salaire marocain', 'conversion brut net'],
   authors: [{ name: 'Salaire Net Maroc' }],
   creator: 'Salaire Net Maroc',

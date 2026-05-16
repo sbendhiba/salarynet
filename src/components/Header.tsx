@@ -60,9 +60,9 @@ export default function Header() {
               <path d="M12 18h.01"></path>
               <path d="M8 18h.01"></path>
             </svg>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+            <span className="text-xl md:text-2xl font-bold text-gray-900">
               Calculateur Salaire Net
-            </h1>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
