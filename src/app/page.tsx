@@ -42,11 +42,6 @@ export default function Home() {
     url: 'https://salairenet.ma',
     description: 'Calculateur gratuit de salaire net au Maroc',
     inLanguage: 'fr-MA',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://salairenet.ma/?q={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
   };
 
   const webApplicationSchema = {

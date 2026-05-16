@@ -10,9 +10,47 @@ export const metadata = {
   },
 };
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Salaire Net Maroc',
+  url: 'https://salairenet.ma',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://salairenet.ma/favicon.svg',
+  },
+  description: 'Outils gratuits pour calculer votre salaire net au Maroc',
+  sameAs: [
+    'https://www.linkedin.com/company/erh-pro/',
+    'https://erh.ma/',
+    'https://indemnitelicenciement.ma/',
+  ],
+};
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'À propos de Salaire Net Maroc',
+  description: 'À propos du calculateur de salaire net au Maroc 2026. Outil gratuit et fiable pour convertir votre salaire brut en net.',
+  url: 'https://salairenet.ma/a-propos/',
+  mainEntity: { '@type': 'Organization', name: 'Salaire Net Maroc' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://salairenet.ma/' },
+    { '@type': 'ListItem', position: 2, name: 'À propos', item: 'https://salairenet.ma/a-propos/' },
+  ],
+};
+
 export default function APropos() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
