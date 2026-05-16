@@ -7,7 +7,7 @@ import { Info, HelpCircle, ChevronDown, TrendingUp, BarChart3, Users, Scale } fr
 
 export const metadata = {
   title: 'Calculateur Salaire Net Maroc 2026',
-  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code de tavail 2026',
+  description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code du travail 2026',
   alternates: {
     canonical: 'https://salairenet.ma',
   },
