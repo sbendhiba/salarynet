@@ -41,7 +41,7 @@ export default function CodeDuTravail() {
           title: "Salaire minimum légal (SMIG)",
           content: "Il est institué un salaire minimum légal applicable aux activités agricoles et non agricoles. Le salaire minimum légal est fixé par voie réglementaire sur proposition de la commission nationale chargée de l'étude des questions relatives au salaire minimum, après consultation des organisations professionnelles des employeurs et des organisations syndicales des salariés les plus représentatives ou, à défaut, après avis de la chambre professionnelle concernée.",
           reference: "Dahir n° 1-03-194 du 11 septembre 2003",
-          note: "SMIG 2026: 3 500 MAD/mois (secteur non agricole), 2 776 MAD/mois (secteur agricole)"
+          note: "SMIG 2026: 3 422,72 MAD/mois (secteur non agricole), 2 539 MAD/mois (secteur agricole) — Décret n° 2-25-983 du 29 décembre 2025"
         },
         {
           number: "Article 347",

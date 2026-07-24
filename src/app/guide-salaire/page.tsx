@@ -466,8 +466,8 @@ export default function Guide() {
                 {/* Exemple 1 : SMIG */}
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                   <div className="bg-blue-600 px-6 py-4">
-                    <h3 className="text-white font-bold text-lg">Exemple 1 – Salarié au SMIG (3 111 MAD brut)</h3>
-                    <p className="text-blue-100 text-sm">Profil : employé secteur privé, sans personnes à charge</p>
+                    <h3 className="text-white font-bold text-lg">Exemple 1 – Salarié au SMIG (3 422,72 MAD brut)</h3>
+                    <p className="text-blue-100 text-sm">Profil : employé secteur privé non agricole, sans personnes à charge</p>
                   </div>
                   <div className="p-6">
                     <div className="overflow-x-auto">
@@ -483,32 +483,32 @@ export default function Guide() {
                           <tr>
                             <td className="p-3 text-gray-700 font-medium">Salaire brut</td>
                             <td className="p-3 text-right text-gray-500">—</td>
-                            <td className="p-3 text-right font-semibold">3 111,00 MAD</td>
+                            <td className="p-3 text-right font-semibold">3 422,72 MAD</td>
                           </tr>
                           <tr className="text-red-600">
                             <td className="p-3">– CNSS (4,29%)</td>
-                            <td className="p-3 text-right text-gray-500">3 111 × 4,29%</td>
-                            <td className="p-3 text-right">– 133,46 MAD</td>
+                            <td className="p-3 text-right text-gray-500">3 422,72 × 4,29%</td>
+                            <td className="p-3 text-right">– 146,83 MAD</td>
                           </tr>
                           <tr className="text-red-600">
                             <td className="p-3">– AMO (2,26%)</td>
-                            <td className="p-3 text-right text-gray-500">3 111 × 2,26%</td>
-                            <td className="p-3 text-right">– 70,31 MAD</td>
+                            <td className="p-3 text-right text-gray-500">3 422,72 × 2,26%</td>
+                            <td className="p-3 text-right">– 77,35 MAD</td>
                           </tr>
                           <tr className="text-red-600">
                             <td className="p-3">– IPE (0,19%)</td>
-                            <td className="p-3 text-right text-gray-500">3 111 × 0,19%</td>
-                            <td className="p-3 text-right">– 5,91 MAD</td>
+                            <td className="p-3 text-right text-gray-500">3 422,72 × 0,19%</td>
+                            <td className="p-3 text-right">– 6,50 MAD</td>
                           </tr>
                           <tr className="text-gray-500">
                             <td className="p-3">– Frais professionnels (20%)</td>
-                            <td className="p-3 text-right text-gray-500">3 111 × 20%</td>
-                            <td className="p-3 text-right">– 622,20 MAD</td>
+                            <td className="p-3 text-right text-gray-500">3 422,72 × 20%</td>
+                            <td className="p-3 text-right">– 684,54 MAD</td>
                           </tr>
                           <tr className="bg-gray-50">
                             <td className="p-3 font-medium text-gray-700">= RNI (Revenu Net Imposable)</td>
                             <td className="p-3 text-right text-gray-500">—</td>
-                            <td className="p-3 text-right font-semibold">2 279,12 MAD</td>
+                            <td className="p-3 text-right font-semibold">2 507,50 MAD</td>
                           </tr>
                           <tr className="text-red-600">
                             <td className="p-3">– IR</td>
@@ -518,7 +518,7 @@ export default function Guide() {
                           <tr className="bg-teal-50 font-bold text-teal-700">
                             <td className="p-3">= Salaire net</td>
                             <td className="p-3 text-right">—</td>
-                            <td className="p-3 text-right text-lg">2 901,32 MAD</td>
+                            <td className="p-3 text-right text-lg">3 192,04 MAD</td>
                           </tr>
                         </tbody>
                       </table>
