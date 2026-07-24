@@ -799,7 +799,7 @@ export default function SalaryCalculator() {
               
               <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg">
                 <h3 className="font-semibold text-orange-800 mb-2">SMIG 2026 NET</h3>
-                <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
+                <p className="text-2xl font-bold text-orange-700">3 192 MAD</p>
                 <p className="text-sm text-orange-700">net/mois</p>
               </div>
             </div>

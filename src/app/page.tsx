@@ -210,7 +210,7 @@ export default function Home() {
                 <Users className="w-5 h-5 text-orange-700" />
                 <h3 className="font-semibold text-orange-800">SMIG 2026 NET</h3>
               </div>
-              <p className="text-2xl font-bold text-orange-700">3 200 MAD</p>
+              <p className="text-2xl font-bold text-orange-700">3 192 MAD</p>
               <p className="text-sm text-orange-700">net/mois</p>
             </div>
           </div>
@@ -275,11 +275,11 @@ export default function Home() {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">SMIG brut 2026</span>
-                  <span className="font-medium">3 500 MAD</span>
+                  <span className="font-medium">3 422,72 MAD</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">SMIG net 2026</span>
-                  <span className="font-medium text-teal-700">3 200 MAD</span>
+                  <span className="font-medium text-teal-700">3 192 MAD</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Taux de déduction moyen</span>
