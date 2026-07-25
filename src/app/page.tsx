@@ -86,6 +86,37 @@ export default function Home() {
     ]
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Quelle est la différence entre brut et net ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: "Le salaire brut est le montant total avant déductions, tandis que le salaire net est ce que vous recevez réellement après déduction des cotisations sociales (CNSS 4,29%, AMO 2,26%) et de l'impôt sur le revenu (IR) selon le barème progressif 2026.",
+        },
+      },
+      {
+        '@type': 'Question',
+        name: "Comment est calculé l'impôt sur le revenu (IR) ?",
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: "L'IR est calculé selon un barème progressif 2026 appliqué sur le revenu net imposable (RNI). Le RNI = salaire brut - CNSS - AMO - IPE - frais professionnels. Les taux varient de 0% à 37% selon la tranche.",
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Le salaire net inclut-il toutes les déductions ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: "Oui, le salaire net est le montant final après déduction de toutes les cotisations obligatoires (CNSS, AMO, IPE) et de l'impôt sur le revenu. C'est le montant qui sera versé sur votre compte bancaire.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <script
@@ -103,6 +134,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Header />
 
@@ -162,7 +197,7 @@ export default function Home() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Consultez le détail</h3>
               <p className="text-gray-600 text-sm">
-                Visualisez le détail de chaque déduction calculée selon la loi.
+                Visualisez le détail de chaque déduction calculée selon la loi. Consultez notre <Link href="/guide-salaire" prefetch={false} className="text-teal-700 font-medium hover:underline">guide de calcul</Link> pour comprendre chaque étape.
               </p>
             </div>
 
@@ -172,7 +207,7 @@ export default function Home() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Explorez les ressources</h3>
               <p className="text-gray-600 text-sm">
-                Accédez au Code du Travail et aux questions fréquentes.
+                Consultez le <Link href="/guide-salaire" prefetch={false} className="text-teal-700 font-medium hover:underline">guide de calcul détaillé</Link>, le <Link href="/code-du-travail" prefetch={false} className="text-teal-700 font-medium hover:underline">Code du Travail</Link> et la <Link href="/faq" prefetch={false} className="text-teal-700 font-medium hover:underline">FAQ</Link>.
               </p>
             </div>
           </div>
@@ -305,7 +340,8 @@ export default function Home() {
             <p className="text-teal-700 text-sm">
               Ces statistiques concernent le secteur privé formel au Maroc. Le salaire médian de 
               <strong> 4 500 MAD NET</strong> signifie que 50% des salariés gagnent moins et 50% gagnent plus. 
-              Utilisez notre calculateur ci-dessus pour connaître votre position exacte sur le marché.
+              Utilisez notre calculateur ci-dessus pour connaître votre position exacte sur le marché. 
+              Retrouvez le détail du calcul dans notre <Link href="/guide-salaire" prefetch={false} className="font-semibold underline hover:text-teal-900">guide du salaire net</Link>.
             </p>
           </div>
         </section>
@@ -326,10 +362,11 @@ export default function Home() {
               Pour un contrat CDI au Maroc, le passage du salaire brut au salaire net implique plusieurs déductions obligatoires. 
               La <strong>CNSS (Caisse Nationale de Sécurité Sociale)</strong> représente 4,29% de votre salaire brut 
               (plafonné à 6 000 MAD/mois), l'<strong>AMO (Assurance Maladie Obligatoire)</strong> de 2,26% 
-              assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d\'Emploi)</strong> de 0,19% 
+              assure votre couverture médicale, et l'<strong>IPE (Indemnité Perte d&apos;Emploi)</strong> de 0,19% 
               (également plafonné à 6 000 MAD/mois). Les <strong>frais professionnels</strong> représentent 25% 
               du salaire brut (plafonnés à 2 916,66 MAD/mois). Enfin, l'<strong>IR (Impôt sur le Revenu)</strong> 
-              est calculé selon un barème progressif 2026 appliqué au revenu net imposable mensuel.
+              est calculé selon un barème progressif 2026 appliqué au revenu net imposable mensuel. 
+              Pour une explication pas à pas, consultez notre <Link href="/guide-salaire" prefetch={false} className="text-teal-700 font-medium hover:underline">guide de calcul du salaire net</Link>.
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
@@ -418,6 +455,100 @@ export default function Home() {
                 Voir toutes les questions
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Ressources utiles */}
+        <section className="bg-white rounded-xl shadow-lg p-8 md:p-10">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              Ressources utiles
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Approfondissez vos connaissances sur la paie et le droit du travail au Maroc.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors">
+              <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <Info className="w-5 h-5 text-teal-600" />
+                Guide du calcul du salaire net
+              </h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Méthode complète en 6 étapes pour passer du brut au net : CNSS, AMO, IPE, frais professionnels, IR. Avec exemples chiffrés.
+              </p>
+              <Link href="/guide-salaire" prefetch={false} className="text-teal-700 font-medium text-sm hover:underline">
+                Lire le guide →
+              </Link>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors">
+              <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <Scale className="w-5 h-5 text-teal-600" />
+                Code du Travail marocain
+              </h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Consultez les articles de loi relatifs au salaire, aux cotisations sociales et aux droits des salariés au Maroc.
+              </p>
+              <Link href="/code-du-travail" prefetch={false} className="text-teal-700 font-medium text-sm hover:underline">
+                Consulter →
+              </Link>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors">
+              <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <HelpCircle className="w-5 h-5 text-teal-600" />
+                Questions fréquentes
+              </h3>
+              <p className="text-gray-600 text-sm mb-3">
+                10 réponses aux questions les plus posées : brut vs net, IR 2026, CNSS, enfants à charge, CDI vs CNE.
+              </p>
+              <Link href="/faq" prefetch={false} className="text-teal-700 font-medium text-sm hover:underline">
+                Voir la FAQ →
+              </Link>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors">
+              <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <Users className="w-5 h-5 text-teal-600" />
+                À propos de Salaire Net Maroc
+              </h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Découvrez notre mission : rendre le calcul de la paie accessible à tous les salariés marocains.
+              </p>
+              <Link href="/a-propos" prefetch={false} className="text-teal-700 font-medium text-sm hover:underline">
+                En savoir plus →
+              </Link>
+            </div>
+          </div>
+
+          {/* Cross-site contextual links */}
+          <div className="mt-8 bg-gradient-to-r from-teal-50 to-blue-50 border border-teal-100 rounded-lg p-6">
+            <h3 className="font-semibold text-gray-900 mb-3">🔗 Outils complémentaires du réseau e-RH Pro</h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Vous avez calculé votre salaire net ? Allez plus loin avec nos outils spécialisés :
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <span className="text-teal-600 mt-0.5">•</span>
+                <p className="text-gray-700 text-sm">
+                  <a href="https://indemnitelicenciement.ma/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 hover:underline">
+                    Calculateur d&apos;indemnités de licenciement
+                  </a>
+                  {' '}— Estimez vos indemnités de licenciement, préavis et dommages-intérêts selon le Code du Travail marocain.
+                </p>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-teal-600 mt-0.5">•</span>
+                <p className="text-gray-700 text-sm">
+                  <a href="https://erh.ma/" target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-700 hover:underline">
+                    e-RH Pro – Calculateurs RH complets
+                  </a>
+                  {' '}— CNSS, heures supplémentaires, solde de tout compte, bulletins de paie et guides RH gratuits.
+                </p>
+              </li>
+            </ul>
           </div>
         </section>
       </main>

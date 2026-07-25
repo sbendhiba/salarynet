@@ -674,7 +674,7 @@ export default function Guide() {
                   <div>
                     <h3 className="font-semibold text-blue-900 mb-2">Base légale</h3>
                     <p className="text-blue-800 text-sm leading-relaxed">
-                      Les calculs sont basés sur le Code du Travail marocain et la législation fiscale en vigueur pour 2026. 
+                      Les calculs sont basés sur le <Link href="/code-du-travail" prefetch={false} className="underline font-medium hover:text-blue-950">Code du Travail marocain</Link> et la législation fiscale en vigueur pour 2026. 
                       Les taux et plafonds peuvent varier selon les conventions collectives sectorielles.
                     </p>
                   </div>
@@ -726,6 +726,31 @@ export default function Guide() {
                 <Calculator className="w-5 h-5" />
                 Accéder au calculateur
               </Link>
+            </div>
+
+            {/* Cross-site contextual links */}
+            <div className="mt-8 bg-gradient-to-r from-blue-50 to-teal-50 border border-blue-100 rounded-lg p-6">
+              <h3 className="font-semibold text-gray-900 mb-3">🔗 Poursuivez vos recherches</h3>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-600 mt-0.5">•</span>
+                  <span className="text-gray-700">
+                    <a href="https://indemnitelicenciement.ma/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 hover:underline">
+                      Calculateur d&apos;indemnités de licenciement
+                    </a>
+                    {' '}— En cas de rupture de contrat, estimez vos indemnités de licenciement, préavis et dommages-intérêts selon le Code du Travail marocain.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-600 mt-0.5">•</span>
+                  <span className="text-gray-700">
+                    <a href="https://erh.ma/" target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-700 hover:underline">
+                      e-RH Pro – Suite complète d&apos;outils RH
+                    </a>
+                    {' '}— Calculateurs CNSS, heures supplémentaires, solde de tout compte, générateurs de bulletins de paie et guides RH gratuits.
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
