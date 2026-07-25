@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   authors: [{ name: 'Salaire Net Maroc' }],
   creator: 'Salaire Net Maroc',
   publisher: 'Salaire Net Maroc',
+  alternates: {
+    languages: {
+      'fr-MA': 'https://salairenet.ma/',
+      'x-default': 'https://salairenet.ma/',
+    },
+  },
   robots: {
     index: true,
     follow: true,

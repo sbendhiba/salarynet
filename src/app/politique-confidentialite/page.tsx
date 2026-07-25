@@ -7,6 +7,10 @@ export const metadata = {
   description: 'Politique de confidentialité du calculateur de salaire net au Maroc. Aucune donnée personnelle n\'est stockée.',
   alternates: {
     canonical: 'https://salairenet.ma/politique-confidentialite/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/politique-confidentialite/',
+      'x-default': 'https://salairenet.ma/politique-confidentialite/',
+    },
   },
 };
 

@@ -7,6 +7,10 @@ export const metadata = {
   description: 'À propos du calculateur de salaire net au Maroc 2026. Outil gratuit et fiable pour convertir votre salaire brut en net.',
   alternates: {
     canonical: 'https://salairenet.ma/a-propos/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/a-propos/',
+      'x-default': 'https://salairenet.ma/a-propos/',
+    },
   },
 };
 

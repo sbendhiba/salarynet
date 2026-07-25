@@ -7,6 +7,10 @@ export const metadata = {
   description: 'Mentions légales du calculateur de salaire net au Maroc 2026.',
   alternates: {
     canonical: 'https://salairenet.ma/mentions-legales/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/mentions-legales/',
+      'x-default': 'https://salairenet.ma/mentions-legales/',
+    },
   },
 };
 
