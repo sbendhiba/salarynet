@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   description: 'Réponses aux questions les plus fréquentes sur le calcul du salaire net au Maroc : CNSS, AMO, IR, barèmes 2026 et cas particuliers.',
   alternates: {
     canonical: 'https://salairenet.ma/faq/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/faq/',
+      'x-default': 'https://salairenet.ma/faq/',
+    },
   },
 };
 

@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   description: 'Consultez les articles clés du Code du Travail marocain relatifs au salaire, aux cotisations sociales, aux congés et aux droits des salariés.',
   alternates: {
     canonical: 'https://salairenet.ma/code-du-travail/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/code-du-travail/',
+      'x-default': 'https://salairenet.ma/code-du-travail/',
+    },
   },
 };
 

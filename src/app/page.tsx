@@ -10,12 +10,32 @@ export const metadata = {
   description: 'Calculateur de salaire au Maroc. Convertissez votre salaire brut en net avec calcul détaillé des cotisations CNSS, IPE et IR.. | Code du travail 2026',
   alternates: {
     canonical: 'https://salairenet.ma',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/',
+      'x-default': 'https://salairenet.ma/',
+    },
   },
   openGraph: {
     title: 'Calculateur Salaire Net Maroc 2026',
     description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé.',
     url: 'https://salairenet.ma',
     type: 'website',
+    locale: 'fr_MA',
+    siteName: 'Salaire Net Maroc',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Calculateur Salaire Net Maroc 2026',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calculateur Salaire Net Maroc 2026',
+    description: 'Calculateur gratuit de salaire net au Maroc. Convertissez votre salaire brut en net avec calcul détaillé.',
+    images: ['/twitter-image.jpg'],
   },
 };
 

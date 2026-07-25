@@ -9,6 +9,10 @@ export const metadata = {
   description: 'Guide détaillé pour comprendre le calcul du salaire net au Maroc selon le droit du travail marocain. Méthodes de calcul des cotisations sociales et de l\'IR.',
   alternates: {
     canonical: 'https://salairenet.ma/guide-salaire/',
+    languages: {
+      'fr-MA': 'https://salairenet.ma/guide-salaire/',
+      'x-default': 'https://salairenet.ma/guide-salaire/',
+    },
   },
 };
 
