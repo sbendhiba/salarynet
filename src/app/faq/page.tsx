@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, BookOpen, Scale, Calculator, ArrowRight } from 'lucide-react';
 
 interface FAQItem {
   question: string;
@@ -130,7 +131,10 @@ export default function FAQ() {
           <div className="mb-6">
             <p className="text-gray-600 leading-relaxed">
               Retrouvez ici les réponses aux questions les plus courantes concernant le calcul du salaire net au Maroc. 
-              Si vous ne trouvez pas la réponse à votre question, n'hésitez pas à nous contacter.
+              Pour comprendre la méthode de calcul en détail, consultez notre{' '}
+              <Link href="/guide-salaire" className="text-teal-700 font-medium hover:underline">guide de calcul du salaire net</Link>{' '}
+              ou utilisez directement notre{' '}
+              <Link href="/" className="text-teal-700 font-medium hover:underline">calculateur interactif</Link>.
             </p>
           </div>
 
@@ -158,11 +162,50 @@ export default function FAQ() {
           </div>
 
           <div className="mt-8 bg-teal-50 border-l-4 border-teal-400 p-4 rounded-r-lg">
-            <h3 className="font-semibold text-teal-800 mb-2">💡 Besoin d'aide supplémentaire ?</h3>
-            <p className="text-teal-700 text-sm">
-              Si vous avez d'autres questions ou besoin d'un calcul personnalisé, nous vous recommandons de 
+            <h3 className="font-semibold text-teal-800 mb-2">💡 Besoin d&apos;aide supplémentaire ?</h3>
+            <p className="text-teal-700 text-sm mb-3">
+              Si vous avez d&apos;autres questions ou besoin d&apos;un calcul personnalisé, nous vous recommandons de 
               consulter votre service des ressources humaines ou un expert-comptable spécialisé en droit social marocain.
             </p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/" className="inline-flex items-center gap-1.5 bg-teal-700 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-800 transition-colors font-medium">
+                <Calculator className="w-4 h-4" />
+                Utiliser le calculateur
+              </Link>
+              <Link href="/guide-salaire" className="inline-flex items-center gap-1.5 bg-white text-teal-700 border border-teal-300 text-sm px-4 py-2 rounded-lg hover:bg-teal-50 transition-colors font-medium">
+                <BookOpen className="w-4 h-4" />
+                Lire le guide de calcul
+              </Link>
+              <Link href="/code-du-travail" className="inline-flex items-center gap-1.5 bg-white text-teal-700 border border-teal-300 text-sm px-4 py-2 rounded-lg hover:bg-teal-50 transition-colors font-medium">
+                <Scale className="w-4 h-4" />
+                Code du Travail
+              </Link>
+            </div>
+          </div>
+
+          {/* Cross-site contextual links */}
+          <div className="mt-6 bg-gradient-to-r from-blue-50 to-teal-50 border border-blue-100 rounded-lg p-5">
+            <h3 className="font-semibold text-gray-900 mb-2 text-sm">🔗 Outils complémentaires</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <ArrowRight className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <a href="https://indemnitelicenciement.ma/" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-700 hover:underline">
+                    Calculateur d&apos;indemnités de licenciement
+                  </a>
+                  {' '}— Estimez vos indemnités selon le Code du Travail marocain.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <ArrowRight className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <a href="https://erh.ma/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-700 hover:underline">
+                    e-RH Pro
+                  </a>
+                  {' '}— Calculateurs CNSS, heures supplémentaires, solde de tout compte et guides RH.
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </main>
