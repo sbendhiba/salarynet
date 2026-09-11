@@ -57,22 +57,22 @@ export default function SocialShare({
 
   const handleFacebookShare = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
-    window.open(url, '_blank', 'width=600,height=400');
+    window.open(url, '_blank', 'noopener,noreferrer,width=600,height=400');
   };
 
   const handleTwitterShare = () => {
     const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
-    window.open(url, '_blank', 'width=600,height=400');
+    window.open(url, '_blank', 'noopener,noreferrer,width=600,height=400');
   };
 
   const handleLinkedInShare = () => {
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`;
-    window.open(url, '_blank', 'width=600,height=400');
+    window.open(url, '_blank', 'noopener,noreferrer,width=600,height=400');
   };
 
   const handleWhatsAppShare = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleCopyLink = async () => {
